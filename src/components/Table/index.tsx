@@ -3,6 +3,7 @@ import type { ReactNode } from "react"
 interface Column<T> {
     title: string
     dataIndex: string
+    width?: number
     render?: (text: any, data: T, index: number) => ReactNode
 }
 interface Props<T = any> {
@@ -15,7 +16,7 @@ const Table = (props: Props) => {
             <table border={1} cellSpacing={0} cellPadding={8} style={{borderCollapse: 'collapse', borderColor: '#f1f1f1', borderRadius: 10, width: '100%'}}>
                 <thead style={{textAlign: 'left',backgroundColor: '#f5f5f5'}}>
                     <tr>
-                        {props.columns.map((column) => <th key={column.dataIndex}>{column.title}</th>)}
+                        {props.columns.map((column) => <th key={column.dataIndex} style={{width: column.width}}>{column.title}</th>)}
                     </tr>
                 </thead>
                 <tbody>
