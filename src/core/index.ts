@@ -1,3 +1,4 @@
+import { Storage } from "@plasmohq/storage";
 import { MessageType } from "~common/messageType";
 import { generatorStorageGetByUuid } from "~storage/generator";
 import { type ProjectConfigProps } from "~storage/project";
@@ -92,4 +93,8 @@ function openCenteredWindow(url) {
         });
     })
 }
-  
+
+export const getStorageConfig = async () => {
+    const storage = new Storage()
+    return await storage.getAll()
+}
