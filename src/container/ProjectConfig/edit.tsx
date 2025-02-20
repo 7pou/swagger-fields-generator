@@ -19,7 +19,6 @@ const ProjectConfigEdit = forwardRef((props: any, ref) => {
      
     const open = (data?: ProjectConfigProps) => {
         const defaultData = {
-            pathSelector: '.opblock-summary-path'
         }
         setVisible(true)
 
@@ -66,12 +65,9 @@ const ProjectConfigEdit = forwardRef((props: any, ref) => {
             <FormItem width={100} label="json src">
               <Textarea value={data.json} onChange={e => handleChange('json', e)} />
             </FormItem>
-            <FormItem width={100} label="path selector">
-              <Input value={data.pathSelector} onChange={(e) => handleChange('pathSelector', e)}  />
-            </FormItem>
             <FormItem width={100} label={chrome.i18n.getMessage('button_name')}>
                 <Space>
-                    {props.generate.map(item => (
+                    {props.generate?.map(item => (
                         stringSplit(data.btns).includes(item.uuid) ?
                         <Button size="small" type="ghost" key={item.uuid} onClick={() => handleChange('btns', actionBtns(item.uuid))}>{item.btnName}</Button>:
                         <Button size="small" type="ghost" style={{opacity: 0.5}} key={item.uuid} onClick={() => handleChange('btns', actionBtns(item.uuid))}>{item.btnName}</Button>
