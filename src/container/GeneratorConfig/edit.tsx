@@ -3,7 +3,6 @@ import Button from "~components/Button"
 import Flex from "~components/Flex"
 import FormItem from "~components/Form/Item"
 import Input from "~components/Form/libs/Input"
-import Select from "~components/Form/libs/Select"
 import Textarea from "~components/Form/libs/Textarea"
 import Modal from "~components/Modal"
 import type { GenerateConfigProps } from "~storage/generator"
@@ -35,19 +34,19 @@ const GeneratorConfigEdit = forwardRef((props, ref) => {
     }
     const renderFooter = () => {
         return <Flex>
-            <Button type="ghost" onClick={handleCancel}>取消</Button>
+            <Button type="ghost" onClick={handleCancel}>{chrome.i18n.getMessage('cancel')}</Button>
             <div style={{width: 10}} />
-            <Button onClick={handleSubmit}>保存</Button>
+            <Button onClick={handleSubmit}>{chrome.i18n.getMessage('save')}</Button>
         </Flex>
     }
     return (
 
-        <Modal title="编辑" open={visible} footer={renderFooter()}>
-            <FormItem width={100} label="按钮名称">
+        <Modal title={chrome.i18n.getMessage(data.uuid? 'edit': 'create')} open={visible} footer={renderFooter()}>
+            <FormItem width={100} label={chrome.i18n.getMessage('button_name')}>
               <Input value={data.btnName} onChange={(e) => handleChange('btnName', e)}  />
             </FormItem>
           
-            <FormItem width={100} label="执行代码">
+            <FormItem width={100} label={chrome.i18n.getMessage('generate_code')}>
               <Textarea value={data.code} onChange={e => handleChange('code', e)} />
             </FormItem>
         </Modal>

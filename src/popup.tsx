@@ -79,12 +79,12 @@ function IndexPopup() {
           <span>successful!🍻🍻🍻</span>
         </View>
         <View if={project?.loadJsonSuccess === false} className="error-message" >
-          <span>获取失败,请手动配置JSON地址</span>
+          <span>{chrome.i18n.getMessage('load_json_error')}</span>
           <span className="link" onClick={handleNavOption}>GO&gt;</span>
         </View>
       </View>
-      <div className="menu-item" onClick={handleNavOption}>配置页</div>
-      <div className="menu-item" onClick={handleNavFeedback}>反馈</div>
+      <div className="menu-item" onClick={handleNavOption}>{chrome.i18n.getMessage('options_page')}</div>
+      <div className="menu-item" onClick={handleNavFeedback}>{chrome.i18n.getMessage('feedback')}</div>
     </div>
   )
 }

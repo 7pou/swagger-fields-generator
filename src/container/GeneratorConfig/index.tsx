@@ -49,7 +49,7 @@ const GeneratorConfig = () => {
       })
     }
     const handleDelete = (index) => {
-      const isDel = confirm("确定删除？")
+      const isDel = confirm(chrome.i18n.getMessage('are_you_sure_to_delete'))
       if (!isDel) return
       generatorStorageSet([...data.slice(0, index), ...data.slice(index + 1)]).then(() => {
         generatorStorageGet().then((res) => {
@@ -64,38 +64,40 @@ const GeneratorConfig = () => {
     }
     const columns = [
         {
-          title: "按钮名称",
+          title: chrome.i18n.getMessage('button_name'),
           dataIndex: "btnName",
         },
         {
-          title: "状态",
+          title: chrome.i18n.getMessage('status'),
           dataIndex: "enable",
           width: 34,
           render: (text,record, index) => <Switch size="small" value={text} onChange={(() => handleStatusChange(text, index))} />
         },
         {
-          title: "操作",
+          title: chrome.i18n.getMessage('action'),
           dataIndex: "action",
           width: 80,
 
           render: (text, record, index) => (
             <Flex>
-              <Button type="link" onClick={() => handleEdit(index)}>编辑</Button>
+              <Button type="link" onClick={() => handleEdit(index)}>{chrome.i18n.getMessage('edit')}</Button>
               <div style={{width:4}}></div>
-              <Button type="link" onClick={() => handleDelete(index)}>删除</Button>
+              <Button type="link" onClick={() => handleDelete(index)}>{chrome.i18n.getMessage('delete')}</Button>
             </Flex> 
           )
         }
     ]
     const renderAction = () => {
       return <Space>
-        <Button type="link" onClick={hanldeReference}>刷新</Button>
-        <Button onClick={hanldeAdd}>新增</Button>
+        <Button type="link" onClick={hanldeReference}>
+          <i className="iconfont icon-reference"/>
+        </Button>
+        <Button onClick={hanldeAdd}>{chrome.i18n.getMessage('create')}</Button>
       </Space>
     }
    
     return (
-        <Card title="生成配置" action={renderAction()}>
+        <Card title={chrome.i18n.getMessage('generate_page')} action={renderAction()}>
             <Table columns={columns} dataSource={data}></Table>
             <GeneratorConfigEdit ref={GeneratorConfigEditRef} />
         </Card>

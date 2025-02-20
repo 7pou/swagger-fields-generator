@@ -32,6 +32,7 @@
     "sandbox": {
       "pages": ["sandbox.html"]
     },
+    "default_locale": "en",
     "web_accessible_resources": [
       {
         "resources": ["sandbox.html"],

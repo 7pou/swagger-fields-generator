@@ -33,7 +33,7 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
             e.stopPropagation()
             const path = findChild(summary, '.opblock-summary-path')?.innerText
             const method = findChild(summary, '.opblock-summary-method')?.innerText?.toLowerCase()
-            const schema = json?.paths[path][method] || {error: true, message: '获取json失败, 请检查配置'}
+            const schema = json?.paths[path][method] || {error: true, message: chrome.i18n.getMessage('load_json_error')}
             
             const url = chrome.runtime.getURL("sandbox.html")
             openCenteredWindow(url).then((sandbox) => {
