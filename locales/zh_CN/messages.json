@@ -34,5 +34,9 @@
     "load_json_error": { "message": "获取失败,请手动配置JSON地址", "definitions": "获取失败,请手动配置JSON地址" },
     "last_modifiy_time": { "message": "最后修改时间", "definitions": "最后修改时间" },
     "export_config": { "message": "导出配置", "definitions": "导出配置" },
-    "import_config": { "message": "导入配置", "definitions": "导入配置" }
+    "import_config": { "message": "导入配置", "definitions": "导入配置" },
+    "restore_config": { "message": "恢复默认配置", "definitions": "恢复默认配置" },
+    "are_you_sure_to_import_this_config":  {"message": "确定导入此配置吗?", "definitions": "确定导入此配置吗?"},
+    "config_error": { "message": "配置异常", "definitions": "配置异常" },
+    "please_fix_restore": {"message": "请修复配置或恢复默认配置", "definitions": "请修复配置或恢复默认配置"}
 }
