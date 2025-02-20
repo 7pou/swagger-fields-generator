@@ -1,20 +1,33 @@
-import { useState } from "react"
-
+import { useEffect, useState } from "react"
+import GlobalConfig from "~container/GlobalConfig"
+import ProjectConfig from "~container/ProjectConfig"
+import GeneratorConfig from "~container/GeneratorConfig"
+import './styles/options.scss'
+import { analytics } from "~utils/analytics"
+import 'https://www.googletagmanager.com/gtag/js?id=$PLASMO_PUBLIC_GTAG_ID'
 function IndexOptions() {
-  const [data, setData] = useState("")
+  const [tab, setTab] = useState(0)
+  useEffect(() => {
+    analytics()
+  }, [])
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        padding: 16
-      }}>
-      <h1>
-        Welcome to your <a href="https://www.plasmo.com">Plasmo</a> Extension!
-      </h1>
-      <input onChange={(e) => setData(e.target.value)} value={data} />
-      <footer>Crafted by @PlasmoHQ</footer>{" "}
+    <div className="swagger-fields-generator-options-page">
+      <div className="header"></div>
+      <div className="body">
+        <div className="menus">
+          <div className={"menu-item " + (tab === 0 ? ' on' : '')} onClick={() => setTab(0)}>全局配置</div>
+          <div className={"menu-item " + (tab === 1 ? ' on' : '')} onClick={() => setTab(1)}>生成配置</div>
+          <div className={"menu-item " + (tab === 2 ? ' on' : '')} onClick={() => setTab(2)}>项目配置</div>
+        </div>
+        <div className="content">
+          {tab === 0 && <GlobalConfig />}
+          {tab === 1 && <GeneratorConfig />}
+          {tab === 2 && <ProjectConfig />}
+        </div>
+      </div>
+      <div className="footer"></div>
+   
     </div>
   )
 }
