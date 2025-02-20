@@ -20,19 +20,19 @@ function IndexOptions() {
         <div className="menus">
           <div className={"menu-item " + (tab === 0 ? ' on' : '')} onClick={() => setTab(0)}>
             <i className="iconfont icon-shezhi"></i>
-            <text>{chrome.i18n.getMessage('global_page')}</text>  
+            <span>{chrome.i18n.getMessage('global_page')}</span>  
           </div>
           <div className={"menu-item " + (tab === 1 ? ' on' : '')} onClick={() => setTab(1)}>
             <i className="iconfont icon-AIGC"></i>
-            <text>{chrome.i18n.getMessage('generate_page')}</text>  
+            <span>{chrome.i18n.getMessage('generate_page')}</span>  
           </div>
           <div className={"menu-item " + (tab === 2 ? ' on' : '')} onClick={() => setTab(2)}>
             <i className="iconfont icon-project"></i>
-            <text>{chrome.i18n.getMessage('project_page')}</text>  
+            <span>{chrome.i18n.getMessage('project_page')}</span>  
           </div>
           <div className={"menu-item " + (tab === 3 ? ' on' : '')} onClick={() => setTab(3)}>
             <i className="iconfont icon-help"></i>
-            <text>{chrome.i18n.getMessage('help')}</text>  
+            <span>{chrome.i18n.getMessage('help')}</span>  
           </div>
         </div>
         <div className="content">
