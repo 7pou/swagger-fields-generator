@@ -1,0 +1,47 @@
+.swagger-fields-generator-popup {
+    width: 100px;
+    padding: 0 10px;
+    .header {
+        border-bottom: 1px solid #f1f1f1;
+        padding-bottom: 4px;
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.loading {
+                animation: rotateZ .6s linear infinite;
+            }
+        }
+    }
+    .error-message {
+        font-size: 10px;
+        color: #999;
+        margin-top: 10px;
+
+        .link {
+            color: #1678ff;
+            cursor: pointer;
+            margin-left: 4px;
+        }
+    }
+    .menu-item {
+        padding: 5px 0;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+}
+@keyframes rotateZ {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
