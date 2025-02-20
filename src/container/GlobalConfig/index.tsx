@@ -11,7 +11,7 @@ import { globalConfigStorageGet, globalConfigStorageSet, type GlobalConfigProps 
 
 
 const GlobalConfig = () => {
-    const [data, setData] = useState<GlobalConfigProps>({})
+    const [data = {}, setData] = useState<GlobalConfigProps>({})
     useEffect(() => {
         globalConfigStorageGet().then(res => {
             setData(res)
