@@ -58,9 +58,17 @@
     transition: background-color 0.3s ease-in-out;
     position: relative;
   }
+  .swagger-fields-generator_switch.small {
+    width: 30px;
+    height: 15px;
+    border-radius: 15px;
+    padding: 1px;
+  }
+  
+
   
   .swagger-fields-generator_switch.on {
-    background-color: #4caf50;
+    background-color: #1677ff;
   }
   
   .swagger-fields-generator_switch .switch-handle {
@@ -72,7 +80,14 @@
     left: 2px;
     transition: transform 0.3s ease-in-out;
   }
+  .swagger-fields-generator_switch.small .switch-handle {
+    width: 10px;
+    height: 10px;
+  }
   
   .swagger-fields-generator_switch.on .switch-handle {
     transform: translateX(25px);
+  }
+  .swagger-fields-generator_switch.small.on .switch-handle {
+    transform: translateX(15px);
   }
