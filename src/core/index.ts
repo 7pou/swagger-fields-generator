@@ -93,8 +93,3 @@ function openCenteredWindow(url) {
         });
     })
 }
-
-export const getStorageConfig = async () => {
-    const storage = new Storage()
-    return await storage.getAll()
-}
