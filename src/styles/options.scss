@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+}
+.swagger-fields-generator-options-page {
+    background-color: #f8f8f8;
+
+    .header {
+        background-color: #1678ff;
+        height: 54px;
+    }
+    .body {
+        display: flex;
+        height: calc(100vh - 54px);
+        position: relative;
+        .menus {
+            width: 200px;
+            background-color: #fff;
+            .menu-item {
+                padding: 14px 20px;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.7;
+                }
+                &.on {
+                    background-color: #f8f8f8;
+                    color: #1678ff;
+                }
+            }
+        }
+        .content {
+            flex: 1;
+            padding: 12px;
+        }
+    }
+    .footer {
+        position: absolute;
+        bottom: 0;
+        height: 54px;
+    }
+  
+}
