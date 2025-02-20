@@ -32,5 +32,7 @@
     "discord": { "message": "discord", "definitions": "discord" },
     "feedback": { "message": "反馈", "definitions": "反馈" },
     "load_json_error": { "message": "获取失败,请手动配置JSON地址", "definitions": "获取失败,请手动配置JSON地址" },
-    "last_modifiy_time": { "message": "最后修改时间", "definitions": "最后修改时间" }
+    "last_modifiy_time": { "message": "最后修改时间", "definitions": "最后修改时间" },
+    "export_config": { "message": "导出配置", "definitions": "导出配置" },
+    "import_config": { "message": "导入配置", "definitions": "导入配置" }
 }
