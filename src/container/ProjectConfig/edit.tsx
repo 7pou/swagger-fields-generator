@@ -6,7 +6,6 @@ import Input from "~components/Form/libs/Input"
 import Textarea from "~components/Form/libs/Textarea"
 import Modal from "~components/Modal"
 import Space from "~components/Space"
-import { generatorStorageGet, type GenerateConfigProps } from "~storage/generator"
 import type { ProjectConfigProps } from "~storage/project"
 import { stringSplit } from "~utils"
 
@@ -44,9 +43,9 @@ const ProjectConfigEdit = forwardRef((props: any, ref) => {
     const renderFooter = () => {
         return (
             <Flex>
-                <Button type="ghost" onClick={handleCancel}>取消</Button>
+                <Button type="ghost" onClick={handleCancel}>{chrome.i18n.getMessage('cancel')}</Button>
                 <div style={{width: 10}} />
-                <Button onClick={handleSubmit}>保存</Button>
+                <Button onClick={handleSubmit}>{chrome.i18n.getMessage('save')}</Button>
             </Flex>
         )
     }
@@ -59,7 +58,7 @@ const ProjectConfigEdit = forwardRef((props: any, ref) => {
     }
     return (
 
-        <Modal title="编辑" open={visible} footer={renderFooter()}>
+        <Modal title={chrome.i18n.getMessage(data.uuid ? 'edit': 'create')} open={visible} footer={renderFooter()}>
             <FormItem width={100} label="URL">
               <Input value={data.url} onChange={(e) => handleChange('url', e)}  />
             </FormItem>
@@ -70,7 +69,7 @@ const ProjectConfigEdit = forwardRef((props: any, ref) => {
             <FormItem width={100} label="path selector">
               <Input value={data.pathSelector} onChange={(e) => handleChange('pathSelector', e)}  />
             </FormItem>
-            <FormItem width={100} label="按钮">
+            <FormItem width={100} label={chrome.i18n.getMessage('button_name')}>
                 <Space>
                     {props.generate.map(item => (
                         stringSplit(data.btns).includes(item.uuid) ?
