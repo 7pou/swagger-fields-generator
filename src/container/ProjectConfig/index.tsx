@@ -82,7 +82,7 @@ const ProjectConfig = () => {
           dataIndex: "btns",
           width: 200,
           render: (text) => {
-            return <Space>{stringSplit(text).map((uuid) => {
+            return <Space>{stringSplit(text)?.map((uuid) => {
               const name = generate.find(item => item.uuid === uuid)?.btnName
               return <Button type="ghost" size="small">{name}</Button>
             })}</Space>
