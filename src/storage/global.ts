@@ -7,7 +7,7 @@ export interface GlobalConfigProps {
     updateTime?: string
 }
 const storage = new Storage()
-const key = 'swagger-fields-generator-global'
+export const key = 'swagger-fields-generator-global'
 export const globalConfigStorageGet = () : Promise<GlobalConfigProps> => {
     return storage.getItem<GlobalConfigProps>(key).then((data) => {
         return data

@@ -7,19 +7,18 @@ export interface ProjectConfigProps {
     url?: string
     json?: string
     loadJsonSuccess?: boolean
-    pathSelector?: string
     createTime?: string
     updateTime?: string
 }
 const storage = new Storage()
-const key = 'swagger-fields-generator-project'
+export const key = 'swagger-fields-generator-project'
 
 export const projectStorageGet = (): Promise<ProjectConfigProps[]> => {
     return storage.getItem<Array<ProjectConfigProps>>(key)
 }
 export const projectStorageGetByHost = (host: string): Promise<ProjectConfigProps> => {
     return storage.getItem<Array<ProjectConfigProps>>(key).then((data) => {
-        return data.find((item) => isTargetUrl(host, item.url))
+        return data?.find((item) => isTargetUrl(host, item.url))
     })
 }
 export const projectStorageSet = (data) => {
@@ -29,7 +28,7 @@ export const projectStorageSet = (data) => {
 export const projectStorageUpdate = (item) => {
     item.updateTime = new Date().toLocaleString()
     return projectStorageGet().then(res => {
-        const data = res.map((e) => {
+        const data = (res || []).map((e) => {
             if (e.uuid === item.uuid) {
                 return item
             }
@@ -43,7 +42,7 @@ export const projectStorageInsert = (item) => {
     item.uuid = uuid()
     item.createTime = new Date().toLocaleString()
     return projectStorageGet().then(res => {
-        const data = res.concat(item)
+        const data = (res || []).concat(item)
         return storage.setItem(key, data)
     })
 }
