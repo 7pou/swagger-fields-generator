@@ -7,14 +7,14 @@ import View from "~components/View"
 import { globalConfigStorageGet } from "~storage/global"
 import { generatorStorageGet } from "~storage/generator"
 import { requestSource } from "~utils/requestSource"
-import { getCurrentUrlByChromeTabs, insertOpblockBtns } from "~core"
- 
- 
+import { getCurrentUrlByChromeTabs, insertOpblockBtns, openOptionsPage } from "~core"
+
+
 function IndexPopup() {
   const [project, setProject] = useState<ProjectConfigProps | null>(null)
 
 
-  
+
   useEffect(() => {
     postProject().then((projectData) => {
       setProject(projectData)
@@ -30,7 +30,7 @@ function IndexPopup() {
   }
 
   const handleNavOption = () => {
-    chrome.runtime.openOptionsPage();
+    openOptionsPage();
   }
   const handleOpen = async () => {
 
@@ -62,12 +62,19 @@ function IndexPopup() {
         await insertOpblockBtns(projectd, data)
       }
     }
-    
+
   }
   const  handleNavFeedback = () => {
     window.open('https://github.com/7pou/swagger-fields-generator/issues')
   }
-  
+
+  const handleNavHelp = () => {
+    openOptionsPage({tab: 'help'})
+  }
+  const handleNavProjectOption = () => {
+    openOptionsPage({tab: 'project', id: project.uuid})
+  }
+
   return (
     <div className="swagger-fields-generator-popup">
       <Flex  className="header" align="center" justify="space-between">
@@ -80,11 +87,12 @@ function IndexPopup() {
         </View>
         <View if={project?.loadJsonSuccess === false} className="error-message" >
           <span>{chrome.i18n.getMessage('load_json_error')}</span>
-          <span className="link" onClick={handleNavOption}>GO&gt;</span>
+          <span className="link" onClick={handleNavProjectOption}>GO&gt;</span>
         </View>
       </View>
       <div className="menu-item" onClick={handleNavOption}>{chrome.i18n.getMessage('options_page')}</div>
       <div className="menu-item" onClick={handleNavFeedback}>{chrome.i18n.getMessage('feedback')}</div>
+      <div className="menu-item" onClick={handleNavHelp}>{chrome.i18n.getMessage('help')}</div>
     </div>
   )
 }
