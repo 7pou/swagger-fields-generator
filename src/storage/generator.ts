@@ -15,7 +15,7 @@ export const generatorStorageGet = (): Promise<GenerateConfigProps[]> => {
 }
 export const generatorStorageGetByUuid = (uuids:string[]): Promise<GenerateConfigProps[]> => {
     return generatorStorageGet().then((data) => {
-        return data?.filter((item) => uuids.includes(item.uuid))
+      return uuids.map((uuid) => data.find((item) => item.uuid === uuid))
     })
 }
 export const generatorStorageSet = (data) => {
