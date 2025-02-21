@@ -25,7 +25,7 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
     for(let i = 0; i < generatorList.length; i++) {
         const generator = generatorList[i]
         if (!generator.enable) continue
-        
+
         // 创建按钮, 绑定点击事件
         const btnEL = document.createElement('button')
         btnEL.innerText = generator.btnName
@@ -36,10 +36,10 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
             const path = findChild(summary, '.opblock-summary-path')?.innerText
             const method = findChild(summary, '.opblock-summary-method')?.innerText?.toLowerCase()
             const schema = json?.paths[path][method] || {error: true, message: chrome.i18n.getMessage('load_json_error')}
-            
+
             const url = chrome.runtime.getURL("sandbox.html")
             openCenteredWindow(url).then((sandbox) => {
-                sandbox.postMessage({ type: MessageType.EXECUTE, code: generator.code, input: {path, method, ...schema} }, "*");
+                sandbox.postMessage({ type: MessageType.EXECUTE, code: generator.code, json, input: {path, method, ...schema} }, "*");
             });
         }
         btnsEL.appendChild(btnEL)
@@ -76,13 +76,13 @@ export const getCurrentUrlByChromeTabs = () => {
 function openCenteredWindow(url) {
     const screenWidth = window.screen.width;
     const screenHeight = window.screen.height;
-  
+
     const windowWidth = 800;
     const windowHeight = screenHeight - 200;
-  
+
     const left = (screenWidth - windowWidth) / 2;
     const top = (screenHeight - windowHeight) / 2;
-  
+
     const windowOptions = `width=${windowWidth},height=${windowHeight},top=${top},left=${left},resizable=yes,scrollbars=yes,location=no`;
     const sandbox = window.open(url, "_blank", windowOptions)
     return new Promise<Window>((resolve, reject) => {
