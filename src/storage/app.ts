@@ -11,8 +11,20 @@ export const getStorageConfig = async () => {
 
 export const setDefaultStorageConfig = async () => {
     const storage = new Storage()
-    
+
     storage.setItem(generatorKey, defaultConfig.generator)
     storage.setItem(projectKey, defaultConfig.project)
     storage.setItem(globalKey, defaultConfig.global)
+}
+
+export const setOptionsPageParams =  async (params: any) => {
+  const storage = new Storage()
+  await storage.setItem('options-page-params', params)
+}
+
+export const getOptionsPageParams =  async () => {
+  const storage = new Storage()
+  const params = await storage.getItem('options-page-params')
+  await storage.removeItem('options-page-params')
+  return params
 }

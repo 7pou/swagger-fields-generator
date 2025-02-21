@@ -1,4 +1,5 @@
 import { MessageType } from "~common/messageType";
+import { setOptionsPageParams } from "~storage/app";
 import { generatorStorageGetByUuid } from "~storage/generator";
 import { globalConfigStorageGet } from "~storage/global";
 import { type ProjectConfigProps } from "~storage/project";
@@ -111,4 +112,11 @@ function openCenteredWindow(url) {
             }
         });
     })
+}
+
+
+export const openOptionsPage = (params: {tab: 'global' | 'project' | 'generator' | 'help', id?: string} = {tab: 'global'}) => {
+  setOptionsPageParams(params)
+  chrome.runtime.sendMessage({type: MessageType.OPTIONS_PARAMS, params})
+  chrome.runtime.openOptionsPage()
 }
