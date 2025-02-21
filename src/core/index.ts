@@ -24,7 +24,8 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
     const btnsEL = document.createElement('div')
     for(let i = 0; i < generatorList.length; i++) {
         const generator = generatorList[i]
-      
+        if (!generator.enable) continue
+        
         // 创建按钮, 绑定点击事件
         const btnEL = document.createElement('button')
         btnEL.innerText = generator.btnName
