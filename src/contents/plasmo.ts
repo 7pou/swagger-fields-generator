@@ -4,7 +4,7 @@ import { globalConfigStorageGet } from "~storage/global"
 import { projectStorageGetByHost, projectStorageUpdate } from "~storage/project"
 import { findTarget } from "~utils"
 import { requestSource } from "~utils/requestSource"
-
+import '../styles/content.scss'
 export const config: PlasmoCSConfig = {
   // matches: ["https://www.plasmo.com/*"]
 }

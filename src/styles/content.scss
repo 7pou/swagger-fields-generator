@@ -1,0 +1,28 @@
+.opblock-btns {
+
+  button {
+    font-size: 13px !important;
+    margin-left: 3px !important;
+    border: 1px solid #ccc;
+
+    &.btn-collapse {
+      display: none;
+    }
+  }
+
+  &.open {
+    position: absolute;
+    right: 21px;
+    background: #ecf5f0;
+    width: calc(100% - 42px);
+    text-align: right;
+    padding: 10px;
+    border-radius: 4px;
+
+    button {
+      &.btn-collapse {
+        display: inline-block;
+      }
+    }
+  }
+}
