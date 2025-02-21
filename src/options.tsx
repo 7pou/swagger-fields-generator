@@ -42,8 +42,8 @@ function IndexOptions() {
               {tab === 0 && <GlobalConfig />}
               {tab === 1 && <GeneratorConfig />}
               {tab === 2 && <ProjectConfig />}
-              {tab === 3 && <Help />}
             </ErrorBoundary>
+            {tab === 3 && <Help />}
           </div>
         </div>
         <div className="footer"></div>
