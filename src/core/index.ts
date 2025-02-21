@@ -37,6 +37,7 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
         btnEL.onclick = (e) => {
             e.stopPropagation()
             const path = findChild(summary, '.opblock-summary-path')?.innerText
+            if (!path) return
             const method = findChild(summary, '.opblock-summary-method')?.innerText?.toLowerCase()
             const schema = json?.paths[path][method] || {error: true, message: chrome.i18n.getMessage('load_json_error')}
 
