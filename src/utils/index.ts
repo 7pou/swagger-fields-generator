@@ -27,6 +27,10 @@ export const isTargetUrl = (target: string, url: string): boolean => {
   if (!url || !target) return false;
   url = decodeURIComponent(url);
   target = decodeURIComponent(target);
+  if (target.includes('*')) {
+    const regex = new RegExp('^' + target.replace(/\*/g, '.*') + '$');
+    return regex.test(url);
+  }
   if (url === target) return true;
   return target.indexOf(url) === 0;
 }
