@@ -1,6 +1,6 @@
-import { Storage } from "@plasmohq/storage";
 import { MessageType } from "~common/messageType";
 import { generatorStorageGetByUuid } from "~storage/generator";
+import { globalConfigStorageGet } from "~storage/global";
 import { type ProjectConfigProps } from "~storage/project";
 import { findChild, stringSplit } from "~utils";
 
@@ -22,6 +22,8 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
     const generatorList = await generatorStorageGetByUuid(stringSplit(projectConfig.btns))
     // 按钮容器
     const btnsEL = document.createElement('div')
+    btnsEL.classList.add('opblock-btns')
+    const globalConfig = await globalConfigStorageGet()
     for(let i = 0; i < generatorList.length; i++) {
         const generator = generatorList[i]
         if (!generator.enable) continue
@@ -29,8 +31,9 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
         // 创建按钮, 绑定点击事件
         const btnEL = document.createElement('button')
         btnEL.innerText = generator.btnName
-        btnEL.style.marginLeft = '3px'
-        btnEL.style.fontSize = '13px'
+        if (i+1 > globalConfig.maxBtn ) {
+          btnEL.classList.add('btn-collapse')
+        }
         btnEL.onclick = (e) => {
             e.stopPropagation()
             const path = findChild(summary, '.opblock-summary-path')?.innerText
@@ -43,6 +46,20 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
             });
         }
         btnsEL.appendChild(btnEL)
+    }
+
+    if(generatorList.length > globalConfig?.maxBtn) {
+      const collapseBtn = document.createElement('button')
+      collapseBtn.innerText = '>>'
+      collapseBtn.onclick = () => {
+        if (btnsEL.classList.contains('open')) {
+          collapseBtn.innerText = '>>'
+        } else {
+          collapseBtn.innerText = '<<'
+        }
+        btnsEL.classList.toggle('open')
+      }
+      btnsEL.appendChild(collapseBtn)
     }
     return btnsEL
 }
