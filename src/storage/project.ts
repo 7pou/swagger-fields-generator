@@ -41,8 +41,7 @@ export const projectStorageInsert = (item) => {
     item.enable = true
     item.uuid = uuid()
     item.createTime = new Date().toLocaleString()
-    return projectStorageGet().then(res => {
-        const data = (res || []).concat(item)
-        return storage.setItem(key, data)
+    return projectStorageGet().then((res: []) => {
+        return storage.setItem(key, [item, ...res])
     })
 }
