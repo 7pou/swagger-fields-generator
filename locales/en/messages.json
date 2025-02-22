@@ -37,6 +37,7 @@
     "import_config": { "message": "import config", "definitions": "导入配置" },
     "restore_config": { "message": "restore default config", "definitions": "恢复默认配置" },
     "are_you_sure_to_import_this_config":  {"message": "Are you sure to import this config?", "definitions": "确定导入此配置吗?"},
+    "are_you_sure_to_restore_default_config": {"message": "Are you sure to restore default config?", "definitions": "确定恢复默认配置吗?"},
     "config_error": { "message": "Config exception", "definitions": "配置异常" },
     "please_fix_restore": {"message": "请修复配置或恢复默认配置", "definitions": "请修复配置或恢复默认配置"}
 }
