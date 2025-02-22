@@ -34,7 +34,7 @@ const GeneratorConfig = () => {
         res.enable = true
         res.uuid = uuid()
         res.createTime = new Date().toLocaleString()
-        return generatorStorageSet([...data, res])
+        return generatorStorageSet([res,...data])
       }).then(() => {
         generatorStorageGet().then((res) => {
             setData(res || [])
@@ -83,7 +83,7 @@ const GeneratorConfig = () => {
               <Button type="link" onClick={() => handleEdit(index)}>{chrome.i18n.getMessage('edit')}</Button>
               <div style={{width:4}}></div>
               <Button type="link" onClick={() => handleDelete(index)}>{chrome.i18n.getMessage('delete')}</Button>
-            </Flex> 
+            </Flex>
           )
         }
     ]
@@ -95,7 +95,7 @@ const GeneratorConfig = () => {
         <Button onClick={hanldeAdd}>{chrome.i18n.getMessage('create')}</Button>
       </Space>
     }
-   
+
     return (
         <Card title={chrome.i18n.getMessage('generate_page')} action={renderAction()}>
             <Table columns={columns} dataSource={data}></Table>
