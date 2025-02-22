@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { MessageType } from "~common/messageType"
-import { deepClone } from "~utils"
+import { compileJsonSchemaToTs, deepClone } from "~utils"
 const requestParamsformat = (api, model) => {
   const params = api.parameters?.filter((p) => p.in === 'query')
   if (!params) return null
@@ -65,6 +65,9 @@ const transferOpenapi = (api, json) => {
   item.requestParams = requestParamsformat(api, json)
   item.requestBody = requestBodyformat(api, json)
   item.responsesData = responsesformat(api, json)
+  item.requestParamsType = compileJsonSchemaToTs(item.requestParams)
+  item.requestBodyType = compileJsonSchemaToTs(item.requestBody)
+  item.responsesDataType = compileJsonSchemaToTs(item.responsesData)
 
   return item
 }
@@ -72,6 +75,7 @@ const transferOpenapi = (api, json) => {
 const IndexSandbox = () => {
   const [code, setCode] = useState("")
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
+  const [error, setError] = useState(null)
   useEffect(() => {
     const listener = (event) => {
       if (event.data.type === MessageType.EXECUTE) {
@@ -86,6 +90,7 @@ const IndexSandbox = () => {
           document.title = event.data.input.summary + ' ' + event.data.input.path;
         } catch (error) {
           setStatus('error');
+          setError(error);
         }
       }
     }
@@ -94,7 +99,7 @@ const IndexSandbox = () => {
     return () => window.removeEventListener("message", listener);
   }, [])
   if (status === 'loading') return <div>loading</div>
-  if (status === 'error') return <div>error</div>
+  if (status === 'error') return <div>{error}</div>
   return <pre>
     <code>{code}</code>
   </pre>
