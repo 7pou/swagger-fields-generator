@@ -90,7 +90,7 @@ const ProjectConfigEdit = forwardRef((props: any, ref) => {
 
         <Modal title={chrome.i18n.getMessage(data.uuid ? 'edit': 'create')} open={visible} footer={renderFooter()}>
             <FormItem width={100} label="URL">
-              <Input value={data.url} onChange={(e) => handleChange('url', e)}  />
+              <Input disabled={data.uuid === 'auto-project-1'} value={data.url}  onChange={(e) => handleChange('url', e)}  />
             </FormItem>
 
             <FormItem width={100} label="json src">

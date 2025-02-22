@@ -15,7 +15,7 @@ import { generatorStorageGet, type GenerateConfigProps } from "~storage/generato
 const ProjectConfig = () => {
   const [data, setData] = useState([])
   const [generate, setGenerate] = useState<GenerateConfigProps[]>([])
- 
+
   const ProjectConfigEditRef: any = useRef()
 
     useEffect(() => {
@@ -101,9 +101,15 @@ const ProjectConfig = () => {
           render: (text, record, index) => (
             <Flex>
               <Button type="link" onClick={() => handleEdit(index)}>{chrome.i18n.getMessage('edit')}</Button>
-              <div style={{width:4}}></div>
-              <Button type="link" onClick={() => handleDelete(index)}>{chrome.i18n.getMessage('delete')}</Button>
-            </Flex> 
+              {
+                record.uuid !== 'auto-project-1' && (
+                  <>
+                    <div style={{width:4}}></div>
+                    <Button  type="link" onClick={() => handleDelete(index)}>{chrome.i18n.getMessage('delete')}</Button>
+                  </>
+                )
+              }
+            </Flex>
           )
         }
     ]
