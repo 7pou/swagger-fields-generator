@@ -3,7 +3,7 @@ import { MessageType } from "~common/messageType"
 import { compileJsonSchemaToTs, deepClone } from "~utils"
 const requestParamsformat = (api, model) => {
   const params = api.parameters?.filter((p) => p.in === 'query')
-  if (!params) return null
+  if (!params || params.length === 0) return null
   const schema = findSchema(params, model)
   return schema
 }
