@@ -4,7 +4,7 @@ import { compileJsonSchemaToTs, deepClone } from "~utils"
 const requestParamsformat = (api, model) => {
   const params = api.parameters?.filter((p) => p.in === 'query')
   if (!params) return null
-  const schema = findSchema(params.schema, model)
+  const schema = findSchema(params, model)
   return schema
 }
 const requestBodyformat = (api, model) => {
