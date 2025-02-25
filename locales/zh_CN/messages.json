@@ -39,5 +39,6 @@
     "are_you_sure_to_import_this_config":  {"message": "确定导入此配置吗?", "definitions": "确定导入此配置吗?"},
     "are_you_sure_to_restore_default_config": {"message": "确定恢复默认配置吗?", "definitions": "确定恢复默认配置吗?"},
     "config_error": { "message": "配置异常", "definitions": "配置异常" },
-    "please_fix_restore": {"message": "请修复配置或恢复默认配置", "definitions": "请修复配置或恢复默认配置"}
+    "please_fix_restore": {"message": "请修复配置或恢复默认配置", "definitions": "请修复配置或恢复默认配置"},
+    "slogan": {"message": "简化 API 转换，快速生成表单和表格，加快构建界面", "definitions": "slogan"}
 }
