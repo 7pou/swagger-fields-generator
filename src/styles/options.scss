@@ -1,41 +1,104 @@
 body {
-    margin: 0;
+  margin: 0;
 }
 .swagger-fields-generator-options-page {
-    background-color: #f8f8f8;
+  background-color: #f8f8f8;
 
-    .header {
-        background-color: #1678ff;
-        height: 54px;
-    }
-    .body {
+  .header {
+    background-color: #1678ff;
+    height: 54px;
+  }
+  .body {
+    display: flex;
+    height: calc(100vh - 54px);
+    position: relative;
+    .menus {
+      width: 200px;
+      flex: 0 0 200px;
+      background-color: #fff;
+      .menu-item {
+        padding: 14px 20px;
+        cursor: pointer;
         display: flex;
-        height: calc(100vh - 54px);
+        align-items: center;
+        &:hover {
+          opacity: 0.7;
+        }
+        &.on {
+          background-color: #f8f8f8;
+          color: #1678ff;
+        }
+        .iconfont {
+          margin-right: 10px;
+          font-size: 22px;
+        }
+      }
+    }
+    .content {
+      flex: 1;
+      padding: 12px;
+    }
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    height: 54px;
+  }
+
+  .help-container {
+    .title {
+      font-size: 16px;
+    }
+    .slogan {
+      font-size: 12rpx;
+      color: #999;
+      margin-top: 20px;
+    }
+    .connect {
+      margin-top: 20px;
+      a {
+        margin-right: 4px;
+      }
+      .icon-telegram {
+        color: #4295d1;
+      }
+      .icon-discord {
+        color: #5869ea;
+      }
+      .icon-github {
+        color: palevioletred;
+      }
+      .icon-weixin {
+        color: #66dc7b;
+      }
+      .fixed {
         position: relative;
-        .menus {
-            width: 200px;
-            background-color: #fff;
-            .menu-item {
-                padding: 14px 20px;
-                cursor: pointer;
-                &:hover {
-                    opacity: 0.7;
-                }
-                &.on {
-                    background-color: #f8f8f8;
-                    color: #1678ff;
-                }
-            }
+        &:hover {
+          .wechat {
+            display: block;
+          }
         }
-        .content {
-            flex: 1;
-            padding: 12px;
+        .wechat {
+          position: absolute;
+          top: -20px;
+          left: 40px;
+          width: 200px;
+          // height: 100px;
+
+          display: none;
         }
+      }
     }
-    .footer {
-        position: absolute;
-        bottom: 0;
-        height: 54px;
+    .link {
+      color: #999;
+      text-decoration: none;
+      .iconfont {
+        font-size: 40px;
+      }
     }
-  
+    .ferrari {
+      width: 200px;
+      margin-top: 20px;
+    }
+  }
 }
