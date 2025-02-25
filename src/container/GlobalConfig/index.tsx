@@ -39,7 +39,7 @@ const GlobalConfig = () => {
             <FormItem width={100} label={chrome.i18n.getMessage('last_modifiy_time')}>
               <div style={{marginTop: 8, color: '#999'}}>{data.updateTime}</div>
             </FormItem>
-            <Button onClick={handleSubmit}>{chrome.i18n.getMessage('save')}</Button>
+            <Button style={{marginTop:10}} onClick={handleSubmit}>{chrome.i18n.getMessage('save')}</Button>
           </Col>
         </Row>
       </Card>

@@ -210,7 +210,7 @@ function(data) {
             <p>当配置出现异常后, 可以导出配置文件, 在编辑器中修改后再导入到插件</p>
             <p>或者点击恢复默认配置, 请注意: 此操作会永久丢失配置, 请注意导出备份</p>
           </div>
-          <Space>
+          <Space style={{marginTop: 20}}>
             <Button onClick={handleExport}>{chrome.i18n.getMessage('export_config')}</Button>
             <Upload onChange={handleImport} accept=".json">
               <Button>{chrome.i18n.getMessage('import_config')}</Button>
