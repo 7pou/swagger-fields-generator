@@ -11,7 +11,7 @@ export const uuid = (): string => {
 };
 
 export const multiLine2array = (str: string): string[] => {
-  return str?.split('\n') || [];
+  return str?.replace('\r', '\n').split('\n') || [];
 }
 
 export const isValid = (data) => {
