@@ -1,33 +1,65 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+<p align="center">
+  <img alt="logo" width="200px" src="./assets/icon.png" />
+</p>
 
-## Getting Started
+<p align="center">
+  <a aria-label="License" href="./LICENSE">
+    <img alt="See License" src="https://img.shields.io/github/license/7pou/swagger-fields-generator?style=flat-square"/>
+  </a>
+  <a aria-label="Discord" href="https://discord.gg/mvTPqXKat5">
+    <img alt="Join our Discord for support and chat about our projects" src="https://img.shields.io/discord/1342034439991070764?logo=discord&logoColor=white"/>
+  </a>
+</p>
 
-First, run the development server:
+# Swagger Fields Generator
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+English | [简体中文](./README_zh-CN.md)
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+**Swagger Fields Generator** is a browser extension designed to simplify API transformations, quickly generate forms and tables, and accelerate interface development.
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+## Features
 
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
+- **Automatic Conversion:** Automatically converts Swagger documents into form fields and table columns.
+- **Custom Converters:** Supports user-defined conversion rules to meet specific requirements.
+- **Multilingual Support:** Provides multilingual interfaces for global users.
+- **Single Project Configuration:** Supports single project configurations, allowing users to switch projects quickly.
 
-## Making production build
+## Installation
 
-Run the following:
+- The plugin is available for download in the plugin store; you can install it directly.
+- Alternatively, you can manually install the plugin by following these steps:
+  1. Download the plugin's `.crx` file.
+  2. Enter `chrome://extensions/` in the browser's address bar to open the Extensions page.
+  3. Enable "Developer mode," then drag and drop the `.crx` file onto the page to install.
 
-```bash
-pnpm build
-# or
-npm run build
-```
+## Usage
 
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
+1. Open the target Swagger website.
+2. Click the plugin icon in the browser toolbar to open the plugin popup.
+3. In the popup, click the "Enable" button to activate the plugin.
+4. The plugin will automatically attempt to fetch data from the configured JSON request URL.
+5. After successful retrieval, refresh the current page to see the generator buttons added by the plugin.
+6. Click the generator buttons, and the generated code will appear in a popup for you to copy and use.
 
-## Submit to the webstores
+## Configuration
 
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+- **Number of Buttons Displayed:** Sets the maximum number of buttons displayed in the API section on the Swagger page. The default value is 5. When the number of buttons configured in the project exceeds this value, they will be presented in a collapsed manner.
+- **JSON Request URL:** Configures the JSON request URL for the current Swagger. Supports adding multiple URLs, separated by line breaks. Supports both full and relative paths.
+- **Select Buttons to Display:** Selects the buttons to display on the current Swagger page. Supports drag-and-drop sorting.
+
+## Contributing
+
+We welcome issue reports, feature requests, or direct code contributions. Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+Thanks to the following projects and libraries for their support:
+
+- [json-schema-to-typescript](https://github.com/bcherny/json-schema-to-typescript)
+- [plasmo](https://github.com/PlasmoHQ/plasmo)
+
+**Swagger Fields Generator** aims to simplify API transformations, quickly generate forms and tables, and accelerate interface development.
