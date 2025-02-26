@@ -30,6 +30,7 @@ export const getOptionsPageParams =  async () => {
 }
 
 interface ExtensionInfo {
+  clientId?: string
   version?: string
   installDate?: string
   lastUpdate?: string
