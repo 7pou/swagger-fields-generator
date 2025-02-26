@@ -1,5 +1,5 @@
 import { MessageType } from "~common/messageType";
-import { setOptionsPageParams } from "~storage/app";
+import { getExtensionInfo, setDefaultStorageConfig, setExtensionInfo, setOptionsPageParams } from "~storage/app";
 import { generatorStorageGetByUuid } from "~storage/generator";
 import { globalConfigStorageGet } from "~storage/global";
 import { type ProjectConfigProps } from "~storage/project";
@@ -119,4 +119,17 @@ export const openOptionsPage = (params: {tab: 'global' | 'project' | 'generator'
   setOptionsPageParams(params)
   chrome.runtime.sendMessage({type: MessageType.OPTIONS_PARAMS, params})
   chrome.runtime.openOptionsPage()
+}
+
+
+export const installExtention = async () => {
+  const ext = await getExtensionInfo()
+
+  if (!ext.installDate) {
+    ext.installDate = new Date().toLocaleDateString()
+    ext.lastUpdate = new Date().toLocaleDateString()
+    ext.version = chrome.runtime.getManifest().version
+    await setExtensionInfo(ext)
+    await setDefaultStorageConfig()
+  }
 }

@@ -1,5 +1,5 @@
 import type { PlasmoCSConfig } from "plasmo"
-import { createBtns, elMaskGet, elMaskSet, insertOpblockBtns } from "~core"
+import { createBtns, elMaskGet, elMaskSet, insertOpblockBtns, installExtention } from "~core"
 import { globalConfigStorageGet } from "~storage/global"
 import { projectStorageGetByHost, projectStorageUpdate } from "~storage/project"
 import { findTarget } from "~utils"
@@ -14,6 +14,7 @@ window.addEventListener("message", (e) => {
   }
 })
 window.addEventListener("load", async() => {
+  await installExtention()
   const global = await globalConfigStorageGet()
   if (!global.enable) return
   const data = await requestSource(location.href)
@@ -66,5 +67,5 @@ window.addEventListener("load", async() => {
  *  打开配置页
  *
  *
- * 埋点/schema2ts/帮助页设计/恢复默认配置/全局配置加字段/最大显示按钮盒子/错误页面/弹出可打开帮助/弹出可打开项目配置
+ * 埋点/帮助页设计/全局配置加字段/错误页面/默认的生成器配置/readme.md文件修改/湘创api格式问题修复
 */

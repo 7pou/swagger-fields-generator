@@ -28,3 +28,21 @@ export const getOptionsPageParams =  async () => {
   await storage.removeItem('options-page-params')
   return params
 }
+
+interface ExtensionInfo {
+  version?: string
+  installDate?: string
+  lastUpdate?: string
+}
+
+export const getExtensionInfo = async (): Promise<ExtensionInfo> => {
+  const storage = new Storage()
+  const extensionInfo = await storage.getItem('extension-info') || {}
+  return extensionInfo
+}
+
+export const setExtensionInfo = async (extensionInfo: ExtensionInfo = {}) => {
+  const storage = new Storage()
+  const oldExtenstionInfo = await getExtensionInfo()
+  await storage.setItem('extension-info', {...oldExtenstionInfo, ...extensionInfo})
+}
