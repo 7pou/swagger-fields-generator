@@ -31,12 +31,13 @@ const ProjectConfig = () => {
     const handleEdit = (index) => {
       const current = data[index]
         ProjectConfigEditRef.current?.open(current).then(res => {
-            res.loadJsonSuccess = false
-            return projectStorageUpdate(res)
+          res.loadJsonSuccess = false
+          return projectStorageUpdate(res)
         }).then(() => {
-            projectStorageGet().then((res) => {
-                setData(res || [])
-            })
+          analytics.fireEvent('click', {page: 'ProjectConfig List',type: 'edit'})
+          projectStorageGet().then((res) => {
+              setData(res || [])
+          })
         })
 
     }
@@ -44,6 +45,7 @@ const ProjectConfig = () => {
       ProjectConfigEditRef.current?.open().then(res => {
         return projectStorageInsert(res)
       }).then(() => {
+        analytics.fireEvent('click', {page: 'ProjectConfig List',type: 'add'})
         projectStorageGet().then((res) => {
             setData(res || [])
         })
@@ -51,6 +53,7 @@ const ProjectConfig = () => {
     }
     const handleStatusChange = (text, index) => {
       projectStorageUpdate({ ...data[index], enable: !text }).then(() => {
+        analytics.fireEvent('click', {page: 'ProjectConfig List',type: 'status-change'})
         projectStorageGet().then((res) => {
             setData(res || [])
         })
@@ -60,6 +63,7 @@ const ProjectConfig = () => {
       const isDel = confirm(chrome.i18n.getMessage('are_you_sure_to_delete'))
       if (!isDel) return
       projectStorageSet([...data.slice(0, index), ...data.slice(index + 1)]).then(() => {
+        analytics.fireEvent('click', {page: 'ProjectConfig List',type: 'delete'})
         projectStorageGet().then((res) => {
             setData(res || [])
         })

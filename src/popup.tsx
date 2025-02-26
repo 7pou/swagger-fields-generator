@@ -8,6 +8,7 @@ import { globalConfigStorageGet } from "~storage/global"
 import { generatorStorageGet } from "~storage/generator"
 import { requestSource } from "~utils/requestSource"
 import { getCurrentUrlByChromeTabs, insertOpblockBtns, openOptionsPage } from "~core"
+import analytics from "~utils/analytics"
 
 
 function IndexPopup() {
@@ -16,6 +17,7 @@ function IndexPopup() {
 
 
   useEffect(() => {
+    analytics.firePageViewEvent('Popup Page')
     postProject().then((projectData) => {
       setProject(projectData)
     })
@@ -30,9 +32,11 @@ function IndexPopup() {
   }
 
   const handleNavOption = () => {
+    analytics.fireEvent('click', {page: 'popup',type: 'nav option'})
     openOptionsPage();
   }
   const handleOpen = async () => {
+    analytics.fireEvent('click', {page: 'popup',type: 'switch'})
 
     const config = await globalConfigStorageGet()
     const generate = await generatorStorageGet()
@@ -65,13 +69,16 @@ function IndexPopup() {
 
   }
   const  handleNavFeedback = () => {
+    analytics.fireEvent('click', {page: 'popup',type: 'nav feedback'})
     window.open('https://github.com/7pou/swagger-fields-generator/issues')
   }
 
   const handleNavHelp = () => {
+    analytics.fireEvent('click', {page: 'popup',type: 'nav help'})
     openOptionsPage({tab: 'help'})
   }
   const handleNavProjectOption = () => {
+    analytics.fireEvent('click', {page: 'popup',type: 'nav project option'})
     openOptionsPage({tab: 'project', id: project.uuid})
   }
 

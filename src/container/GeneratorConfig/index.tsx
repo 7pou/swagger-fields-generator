@@ -22,6 +22,7 @@ const GeneratorConfig = () => {
     const handleEdit = (index) => {
       const current = data[index]
         GeneratorConfigEditRef.current?.open(current).then(res => {
+          analytics.fireEvent('click', {page: 'Generator List',type: 'edit'})
             res.updateTime = new Date().toLocaleString()
             return generatorStorageSet([...data.slice(0, index), res, ...data.slice(index + 1)])
         }).then(() => {
@@ -38,12 +39,14 @@ const GeneratorConfig = () => {
         res.createTime = new Date().toLocaleString()
         return generatorStorageSet([res,...data])
       }).then(() => {
+        analytics.fireEvent('click', {page: 'Generator List',type: 'add'})
         generatorStorageGet().then((res) => {
             setData(res || [])
         })
       })
     }
     const handleStatusChange = (text, index) => {
+      analytics.fireEvent('click', {page: 'Generator List',type: 'status-change'})
       generatorStorageSet([...data.slice(0, index), { ...data[index], enable: !text }, ...data.slice(index + 1)]).then(() => {
         generatorStorageGet().then((res) => {
             setData(res || [])
@@ -54,6 +57,7 @@ const GeneratorConfig = () => {
       const isDel = confirm(chrome.i18n.getMessage('are_you_sure_to_delete'))
       if (!isDel) return
       generatorStorageSet([...data.slice(0, index), ...data.slice(index + 1)]).then(() => {
+        analytics.fireEvent('click', {page: 'Generator List',type: 'delete'})
         generatorStorageGet().then((res) => {
             setData(res || [])
         })

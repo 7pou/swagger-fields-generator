@@ -25,6 +25,7 @@ const ErrorWarning = () => {
         })
     }, [])
     const handleRestore = () => {
+        analytics.fireEvent('click', {page: 'Error Warning',type: 'restore'})
         setDefaultStorageConfig().then(() => {
           alert('ok')
           getStorageConfig().then((config) => {
@@ -35,6 +36,7 @@ const ErrorWarning = () => {
         })
     }
     const handleFix = () => {
+      analytics.fireEvent('click', {page: 'Error Warning',type: 'fix'})
       try {
         const globalConfigValue = JSON.parse(globalConfig)
         const projectConfigValue = JSON.parse(projectConfig)

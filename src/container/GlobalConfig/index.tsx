@@ -22,6 +22,7 @@ const GlobalConfig = () => {
     const handleSubmit = () => {
         data.updateTime = new Date().toLocaleString()
         globalConfigStorageSet(data).then(res => {
+          analytics.fireEvent('click', {page: 'GlobalConfig',type: 'save-config'})
           alert('ok')
         })
     }

@@ -33,8 +33,10 @@ const Help = () => {
       projectStorageSet(JSON.parse(project))
       generatorStorageSet(JSON.parse(generate))
       globalConfigStorageSet(JSON.parse(global))
+      analytics.fireEvent('click', {page: 'Help',type: 'import', status: 'success'})
     } catch (error) {
       console.log(error)
+      analytics.fireEvent('click', {page: 'Help',type: 'import', status: 'error', error: error.message})
     }
 
   }
@@ -44,13 +46,20 @@ const Help = () => {
       'version': process.env.PLASMO_PUBLIC_VERSION,
       'create-time': new Date().toLocaleString()
     }
+    analytics.fireEvent('click', {page: 'Help',type: 'export', status: 'success'})
     downloadJson({...json, ext})
   }
   const handleRestore = () => {
     if(confirm(chrome.i18n.getMessage('are_you_sure_to_restore_default_config')) === false) return
     setDefaultStorageConfig().then(() => {
+      analytics.fireEvent('click', {page: 'Help',type: 'restore', status: 'success'})
       alert('ok')
     })
+  }
+  const handleCollapseToggle = (name, status) => {
+    if (status) {
+      analytics.fireEvent('click', {page: 'Help',type: '查看帮助', name: name})
+    }
   }
   const generateCode = `
 function(data) {
@@ -163,7 +172,7 @@ function(data) {
 }
   `
   return <div className="help-container">
-    <Collapse title={chrome.i18n.getMessage('quick_start')}>
+    <Collapse title={chrome.i18n.getMessage('quick_start')} onToggle={e => handleCollapseToggle('快速开始', e)}>
     {chrome.i18n.getMessage('i18n') === '中文' ?
       <div>
         <p>1. 打开目标swagger网站</p>
@@ -186,7 +195,7 @@ function(data) {
     </div>
     }
     </Collapse>
-    <Collapse title={chrome.i18n.getMessage('demo')}>
+    <Collapse title={chrome.i18n.getMessage('demo')} onToggle={e => handleCollapseToggle('demo', e)}>
       {
         chrome.i18n.getMessage('i18n') === '中文' ?
         <div>
@@ -208,7 +217,7 @@ function(data) {
         </div>
       }
     </Collapse>
-    <Collapse title={chrome.i18n.getMessage('global_page')}>
+    <Collapse title={chrome.i18n.getMessage('global_page')} onToggle={e => handleCollapseToggle('全局配置', e)}>
       {chrome.i18n.getMessage('i18n') === '中文' ?
       <div>
         <h3>显示按钮数量</h3>
@@ -230,7 +239,7 @@ function(data) {
     }
 
     </Collapse>
-    <Collapse title={chrome.i18n.getMessage('generate_page')}>
+    <Collapse title={chrome.i18n.getMessage('generate_page')} onToggle={e => handleCollapseToggle('生成器配置', e)}>
       {chrome.i18n.getMessage('i18n') === '中文' ?
       <div>
         <h3>按钮名称</h3>
@@ -274,7 +283,7 @@ function(data) {
       </div>
       }
     </Collapse>
-    <Collapse title={chrome.i18n.getMessage('project_page')}>
+    <Collapse title={chrome.i18n.getMessage('project_page')} onToggle={e => handleCollapseToggle('项目配置', e)}>
       {chrome.i18n.getMessage('i18n') === '中文' ?
         <div>
           <h3>URL</h3>
@@ -319,13 +328,13 @@ function(data) {
           <div className="title">🧙 swagger-fields-generoator</div>
           <div className="slogan">{chrome.i18n.getMessage('slogan')}</div>
           <div className="connect">
-            <a href={T_INVITE_URL} target="_blank" className="link">
+            <a href={T_INVITE_URL} target="_blank" className="link" onClick={() => analytics.fireEvent('click', {page: 'Help', name: '查看飞机群'})}>
               <i className="iconfont icon-telegram"/>
             </a>
-            <a href={DISCORD_INVITE_URL} target="_dlank" className="link">
+            <a href={DISCORD_INVITE_URL} target="_dlank" className="link" onClick={() => analytics.fireEvent('click', {page: 'Help', name: '查看discord'})}>
               <i className="iconfont icon-discord"/>
             </a>
-            <a href={GITHUB_URL} target="_dlank" className="link">
+            <a href={GITHUB_URL} target="_dlank" className="link" onClick={() => analytics.fireEvent('click', {page: 'Help', name: '查看github'})}>
               <i className="iconfont icon-github"/>
             </a>
             <span  className="link fixed">

@@ -4,6 +4,7 @@ import { generatorStorageGetByUuid } from "~storage/generator";
 import { globalConfigStorageGet } from "~storage/global";
 import { type ProjectConfigProps } from "~storage/project";
 import { findChild, stringSplit } from "~utils";
+import analytics from "~utils/analytics";
 
 const INSERT_MARKER = 'inserted'
 
@@ -36,16 +37,17 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
           btnEL.classList.add('btn-collapse')
         }
         btnEL.onclick = (e) => {
-            e.stopPropagation()
-            const path = findChild(summary, '.opblock-summary-path')?.innerText
-            if (!path) return
-            const method = findChild(summary, '.opblock-summary-method')?.innerText?.toLowerCase()
-            const schema = json?.paths[path][method] || {error: true, message: chrome.i18n.getMessage('load_json_error')}
+          analytics.fireEvent('click', {page: 'swagger页面', type: '生成代码', action: generator.btnName, })
+          e.stopPropagation()
+          const path = findChild(summary, '.opblock-summary-path')?.innerText
+          if (!path) return
+          const method = findChild(summary, '.opblock-summary-method')?.innerText?.toLowerCase()
+          const schema = json?.paths[path][method] || {error: true, message: chrome.i18n.getMessage('load_json_error')}
 
-            const url = chrome.runtime.getURL("sandbox.html")
-            openCenteredWindow(url).then((sandbox) => {
-                sandbox.postMessage({ type: MessageType.EXECUTE, code: generator.code, json, input: {path, method, ...schema} }, "*");
-            });
+          const url = chrome.runtime.getURL("sandbox.html")
+          openCenteredWindow(url).then((sandbox) => {
+              sandbox.postMessage({ type: MessageType.EXECUTE, code: generator.code, json, input: {path, method, ...schema} }, "*");
+          });
         }
         btnsEL.appendChild(btnEL)
     }
