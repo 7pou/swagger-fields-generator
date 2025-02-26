@@ -10,6 +10,7 @@
     <img alt="Join our Discord for support and chat about our projects" src="https://img.shields.io/discord/1342034439991070764?logo=discord&logoColor=white"/>
   </a>
 </p>
+
 **Swagger Fields Generator** 是一款 Chrome 浏览器插件，旨在简化 API 转换，快速生成表单和表格，加快构建界面的速度。
 
 [English](./README.md) | 简体中文
@@ -23,9 +24,10 @@
 ## 安装
 - 插件应用商店中已提供插件下载，您可以直接下载安装。
 - 或者，您也可以通过以下步骤手动安装插件：
-1. 下载插件的 `.crx` 文件。
-2. 在 Chrome 浏览器地址栏输入 `chrome://extensions/`，打开扩展程序页面。
-3. 启用“开发者模式”，然后将 `.crx` 文件拖拽到页面中进行安装。
+
+  1. 下载插件的 `.crx` 文件。
+  2. 在 Chrome 浏览器地址栏输入 `chrome://extensions/`，打开扩展程序页面。
+  3. 启用“开发者模式”，然后将 `.crx` 文件拖拽到页面中进行安装。
 
 
 ## 使用
@@ -45,7 +47,7 @@
 
 ## 贡献
 
-欢迎提交问题报告、功能请求或直接贡献代码。请参阅 [CONTRIBUTING.md](CONTRIBUTING.md) 了解更多信息。
+欢迎提交问题报告、功能请求或直接贡献代码。
 
 ## 许可证
 

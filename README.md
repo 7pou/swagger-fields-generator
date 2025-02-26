@@ -49,7 +49,7 @@ English | [简体中文](./README_zh-CN.md)
 
 ## Contributing
 
-We welcome issue reports, feature requests, or direct code contributions. Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+We welcome issue reports, feature requests, or direct code contributions.
 
 ## License
 
