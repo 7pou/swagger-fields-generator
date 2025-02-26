@@ -30,10 +30,10 @@ const GlobalConfig = () => {
       <Card title={chrome.i18n.getMessage('global_page')} action={<Switch value={data.enable} onChange={() => handleChange('enable', !data.enable)} /> }>
         <Row>
           <Col span={15} >
-            <FormItem width={100} label="显示按钮数量">
+            <FormItem width={100} label={chrome.i18n.getMessage('show_button_max_number')}>
               <Input value={data.maxBtn} onChange={(e) => handleChange('maxBtn', e)}  />
             </FormItem>
-            <FormItem width={100} label="JSON地址">
+            <FormItem width={100} label={chrome.i18n.getMessage('JSON_URL')}>
               <Textarea value={data.json} onChange={e => handleChange('json', e)} />
             </FormItem>
             <FormItem width={100} label={chrome.i18n.getMessage('last_modifiy_time')}>

@@ -1,5 +1,5 @@
 {
-
+    "i18n": { "message": "英文" },
     "create": {  "message": "create", "description": "新增" },
     "edit": {  "message": "edit", "description": "编辑" },
     "delete": {  "message": "delete", "description": "删除" },
@@ -21,9 +21,9 @@
     "help": {  "message": "help", "description": "帮助" },
     "status": {  "message": "status", "description": "状态" },
     "are_you_sure_to_delete": {  "message": "are you sure to delete?",  "description": "确定删除吗?" },
-    "show_button_max_number": {  "message": "show button max number" , "description": "显示按钮数量" },
+    "show_button_max_number": {  "message": "show button max count" , "description": "显示按钮数量" },
     "language": {  "message": "language", "description": "语言" },
-    "JSON_URL": {  "message": "json url", "description": "JSON地址" },
+    "JSON_URL": {  "message": "json request url", "description": "JSON地址" },
     "button": {  "message": "button", "description": "按钮名称" },
     "button_name": {  "message": "button name", "description": "按钮名称" },
     "code": {  "message": "code", "description": "代码" },
@@ -40,5 +40,7 @@
     "are_you_sure_to_restore_default_config": {"message": "Are you sure to restore default config?", "definitions": "确定恢复默认配置吗?"},
     "config_error": { "message": "Config exception", "definitions": "配置异常" },
     "please_fix_restore": {"message": "Please fix the configuration or restore the default configuration", "definitions": "请修复配置或恢复默认配置"},
-    "slogan": {"message": "Simplify API conversion, quickly generate forms and tables, accelerate interface construction.", "definitions": "slogan"}
+    "slogan": {"message": "Simplify API conversion, quickly generate forms and tables, accelerate interface construction.", "definitions": "slogan"},
+    "quick_start": {  "message": "Quick Start", "description": "快速入门" },
+    "demo": {"message": "DEMO", "definitions": "demo"}
 }

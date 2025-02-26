@@ -1,5 +1,5 @@
 {
-
+    "i18n": { "message": "中文" },
     "create": {  "message": "新增", "description": "新增" },
     "edit": {  "message": "编辑", "description": "编辑" },
     "delete": {  "message": "删除", "description": "删除" },
@@ -23,7 +23,7 @@
     "are_you_sure_to_delete": {  "message": "确定删除吗?",  "description": "确定删除吗?" },
     "show_button_max_number": {  "message": "显示按钮数量" , "description": "显示按钮数量" },
     "language": {  "message": "语言", "description": "语言" },
-    "JSON_URL": {  "message": "JSON地址", "description": "JSON地址" },
+    "JSON_URL": {  "message": "JSON请求地址", "description": "JSON地址" },
     "button": {  "message": "按钮", "description": "按钮" },
     "button_name": {  "message": "按钮名称", "description": "按钮名称" },
     "code": {  "message": "代码", "description": "代码" },
@@ -40,5 +40,7 @@
     "are_you_sure_to_restore_default_config": {"message": "确定恢复默认配置吗?", "definitions": "确定恢复默认配置吗?"},
     "config_error": { "message": "配置异常", "definitions": "配置异常" },
     "please_fix_restore": {"message": "请修复配置或恢复默认配置", "definitions": "请修复配置或恢复默认配置"},
-    "slogan": {"message": "简化 API 转换，快速生成表单和表格，加快构建界面", "definitions": "slogan"}
+    "slogan": {"message": "简化 API 转换，快速生成表单和表格，加快构建界面", "definitions": "slogan"},
+    "quick_start": {  "message": "快速入门", "description": "快速入门" },
+    "demo": {"message": "DEMO 演示", "definitions": "demo"}
 }
