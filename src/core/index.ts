@@ -126,9 +126,11 @@ export const installExtention = async () => {
   const ext = await getExtensionInfo()
 
   if (!ext.installDate) {
+    const clientId = self.crypto.randomUUID()
     ext.installDate = new Date().toLocaleDateString()
     ext.lastUpdate = new Date().toLocaleDateString()
     ext.version = chrome.runtime.getManifest().version
+    ext.clientId = clientId
     await setExtensionInfo(ext)
     await setDefaultStorageConfig()
   }
