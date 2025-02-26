@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { DISCORD_INVITE_URL, GITHUB_URL, T_INVITE_URL } from "~common/constant";
 import Button from "~components/Button";
 import Card from "~components/Card";
@@ -11,7 +12,11 @@ import { generatorStorageSet } from "~storage/generator";
 import { globalConfigStorageSet } from "~storage/global";
 import { projectStorageSet } from "~storage/project";
 import { downloadJson } from "~utils";
+import analytics from "~utils/analytics";
 const Help = () => {
+  useEffect(() => {
+    analytics.firePageViewEvent('Help Page')
+  },[])
   const handleImport = (ev, reader) => {
     try {
       const json = reader.target.result;

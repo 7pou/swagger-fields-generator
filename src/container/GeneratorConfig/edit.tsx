@@ -6,17 +6,19 @@ import Input from "~components/Form/libs/Input"
 import Textarea from "~components/Form/libs/Textarea"
 import Modal from "~components/Modal"
 import type { GenerateConfigProps } from "~storage/generator"
+import analytics from "~utils/analytics"
 
 const GeneratorConfigEdit = forwardRef((props, ref) => {
     const [visible, setVisible] = useState(false)
     const [data, setData] = useState<GenerateConfigProps>({})
     const handleResolve: any = useRef();
      const handleChange = (key: keyof GenerateConfigProps, value: any) => {
-        setData({ ...data,[key]: value})
+      setData({ ...data,[key]: value})
     }
     const open = (data?: GenerateConfigProps) => {
         setVisible(true)
         setData(data || {})
+        analytics.firePageViewEvent('Generator Edit Page')
         return new Promise<void>((resolve, reject) => {
             handleResolve.current = resolve
         })
@@ -45,7 +47,7 @@ const GeneratorConfigEdit = forwardRef((props, ref) => {
             <FormItem width={100} label={chrome.i18n.getMessage('button_name')}>
               <Input value={data.btnName} onChange={(e) => handleChange('btnName', e)}  />
             </FormItem>
-          
+
             <FormItem width={100} label={chrome.i18n.getMessage('generate_code')}>
               <Textarea value={data.code} onChange={e => handleChange('code', e)} />
             </FormItem>

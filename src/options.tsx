@@ -4,7 +4,6 @@ import ProjectConfig from "~container/ProjectConfig"
 import GeneratorConfig from "~container/GeneratorConfig"
 import './styles/options.scss'
 import './styles/iconfont.css'
-import { analytics } from "~utils/analytics"
 import 'https://www.googletagmanager.com/gtag/js?id=$PLASMO_PUBLIC_GTAG_ID'
 import Help from "~container/Help"
 import ErrorBoundary from "~components/ErrorBoundary"
@@ -21,7 +20,6 @@ function IndexOptions() {
   }
 
   useEffect(() => {
-    analytics()
     getOptionsPageParams().then((params: any) => {
       if (params?.tab && tabmap[params.tab] !== undefined) {
         setTab(tabmap[params.tab])

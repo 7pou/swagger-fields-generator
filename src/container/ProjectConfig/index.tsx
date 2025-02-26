@@ -11,6 +11,7 @@ import ProjectConfigEdit from "./edit";
 import { stringSplit, uuid } from "~utils";
 import Space from "~components/Space";
 import { generatorStorageGet, type GenerateConfigProps } from "~storage/generator";
+import analytics from "~utils/analytics";
 
 const ProjectConfig = () => {
   const [data, setData] = useState([])
@@ -19,12 +20,13 @@ const ProjectConfig = () => {
   const ProjectConfigEditRef: any = useRef()
 
     useEffect(() => {
-        projectStorageGet().then((res) => {
-            setData(res || [])
-        })
-        generatorStorageGet().then(res => {
-            setGenerate(res)
-        })
+      analytics.firePageViewEvent('ProjectConfig List Page')
+      projectStorageGet().then((res) => {
+          setData(res || [])
+      })
+      generatorStorageGet().then(res => {
+          setGenerate(res)
+      })
     }, [])
     const handleEdit = (index) => {
       const current = data[index]

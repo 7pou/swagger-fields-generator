@@ -8,14 +8,16 @@ import { generatorStorageGet, generatorStorageSet } from "~storage/generator";
 import GeneratorConfigEdit from "./edit";
 import { uuid } from "~utils";
 import Space from "~components/Space";
+import analytics from "~utils/analytics";
 
 const GeneratorConfig = () => {
   const [data, setData] = useState([])
   const GeneratorConfigEditRef: any = useRef()
     useEffect(() => {
-        generatorStorageGet().then((res) => {
-            setData(res || [])
-        })
+      analytics.firePageViewEvent('Generator List Page')
+      generatorStorageGet().then((res) => {
+          setData(res || [])
+      })
     }, [])
     const handleEdit = (index) => {
       const current = data[index]

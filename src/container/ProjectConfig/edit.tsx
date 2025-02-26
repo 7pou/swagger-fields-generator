@@ -8,6 +8,7 @@ import Modal from "~components/Modal"
 import Space from "~components/Space"
 import type { ProjectConfigProps } from "~storage/project"
 import { deepClone, stringSplit } from "~utils"
+import analytics from "~utils/analytics"
 
 const ProjectConfigEdit = forwardRef((props: any, ref) => {
     const [visible, setVisible] = useState(false)
@@ -22,7 +23,7 @@ const ProjectConfigEdit = forwardRef((props: any, ref) => {
         const defaultData = {
         }
         setVisible(true)
-
+        analytics.firePageViewEvent('ProjectConfig Edit Page')
         setData(data || defaultData)
 
         return new Promise<void>((resolve, reject) => {

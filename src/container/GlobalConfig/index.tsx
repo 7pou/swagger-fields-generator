@@ -8,14 +8,16 @@ import Textarea from "~components/Form/libs/Textarea"
 import Col from "~components/Grid/Col"
 import Row from "~components/Grid/Row"
 import { globalConfigStorageGet, globalConfigStorageSet, type GlobalConfigProps } from "~storage/global"
+import analytics from "~utils/analytics"
 
 
 const GlobalConfig = () => {
     const [data = {}, setData] = useState<GlobalConfigProps>({})
     useEffect(() => {
-        globalConfigStorageGet().then(res => {
-            setData(res)
-        })
+      analytics.firePageViewEvent('GlobalConfig Page')
+      globalConfigStorageGet().then(res => {
+        setData(res)
+      })
     },[])
     const handleSubmit = () => {
         data.updateTime = new Date().toLocaleString()

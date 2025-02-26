@@ -8,6 +8,7 @@ import { getStorageConfig, setDefaultStorageConfig } from "~storage/app"
 import { generatorStorageSet } from "~storage/generator"
 import { globalConfigStorageSet } from "~storage/global"
 import { projectStorageSet } from "~storage/project"
+import analytics from "~utils/analytics"
 
 const ErrorWarning = () => {
     const [globalConfig, setGlobalConfig] = useState<any>('')
@@ -16,6 +17,7 @@ const ErrorWarning = () => {
 
 
     useEffect(() => {
+      analytics.firePageViewEvent('Error Warning Page')
         getStorageConfig().then((config) => {
             setGlobalConfig(config['swagger-fields-generator-global'])
             setProjectConfig(config['swagger-fields-generator-project'])
