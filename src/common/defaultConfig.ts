@@ -1,5 +1,7 @@
 import { uuid } from "~utils";
 
+
+
 export const defaultConfig = {
     selector: {
         opblockTag: '.opblock-tag',
@@ -23,20 +25,60 @@ export const defaultConfig = {
         ].join('\r'),
     },
     generator: [
-        {
-            enable: true,
-            uuid: 'auto-generator-1',
-            btnName: 'Antd Column',
-            createTime: new Date().toLocaleString(),
-            code: 'function (data) {\n    return data;\n}'
-        },
-        {
-            enable: true,
-            uuid: 'auto-generator-2',
-            btnName: 'response TS',
-            createTime: new Date().toLocaleString(),
-            code: 'function (data) {\n    return data;\n}'
-        },
+      {
+        enable: true,
+        uuid: 'auto-generator-1',
+        btnName: 'Antd Column',
+        createTime: new Date().toLocaleString(),
+        code: `function (data) {
+          const result = []
+          if (data.responsesData && data.responsesData.type === 'object' ) {
+            const properties = data.responsesData.properties
+            for (const key in properties) {
+              result.push({
+                key,
+                type: properties[key].type,
+                label: properties[key].description,
+              })
+            }
+          }
+          return result
+        }`
+      },
+      {
+        enable: true,
+        uuid: 'auto-generator-2',
+        btnName: 'response TS',
+        createTime: new Date().toLocaleString(),
+        code: 'function (data) {\nreturn data.responsesDataType;\n}'
+      },
+      {
+        enable: true,
+        uuid: 'auto-generator-3',
+        btnName: 'form fields',
+        createTime: new Date().toLocaleString(),
+        code: `function(data) {
+  const result = []
+  if (data.requestBody && data.requestBody.type === 'object') {
+    const properties = data.requestBody.properties || {}
+    for (const key in properties) {
+      result.push({
+        key,
+        type: properties[key].type,
+        label: properties[key].description,
+      })
+    }
+  }
+  return result
+}`
+      },
+      {
+        enable: true,
+        uuid: 'auto-generator-4',
+        btnName: 'original data',
+        createTime: new Date().toLocaleString(),
+        code: 'function (data) {\nreturn data;\n}'
+      },
     ],
     project: [
         {
