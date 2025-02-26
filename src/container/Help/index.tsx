@@ -67,7 +67,22 @@ function(data) {
     "application/json",
     "application/xml"
   ],
-  "requestParams": null,
+  "requestParams": [
+    {
+      "name": "username",
+      "in": "query",
+      "description": "The user name for login",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "name": "password",
+      "in": "query",
+      "description": "The password for login in clear text",
+      "required": true,
+      "type": "string"
+    }
+  ],
   "requestBody": {
     "type": "object",
     "properties": {
@@ -103,10 +118,43 @@ function(data) {
       "name": "User"
     }
   },
-  "responsesData": null,
+    "responsesData": {
+    "type": "object",
+    "properties": {
+      "code": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64",
+              "description": "id"
+            },
+            "name": {
+              "type": "string",
+              "description": "名称"
+            }
+          },
+          "title": "DropDownVo"
+        }
+      },
+      "message": {
+        "type": "string"
+      },
+      "systemDate": {
+        "type": "string"
+      }
+    },
+    "title": "BaseRes«List«DropDownVo»»"
+  },
   "requestParamsType": null,
   "requestBodyType": "{ id: number;username: string;firstName: string;lastName: string;email: string;password: string;phone: string;userStatus: number; }",
-  "responsesDataType": null
+  "responsesDataType": "{ code: number;data: Array<{ id: number;name: string; }>;message: string;systemDate: string; }"
 }
   `
   return <div className="help-container">
@@ -188,7 +236,10 @@ function(data) {
 
         <p>转换器格式如下</p>
         <pre><code>{generateCode}</code></pre>
-        <p>传入data参格式如下</p>
+        <p>
+          <span>传入data参格式如下</span>
+          <span style={{fontSize: 10}}>(仅为示例，具体以JSON返回值为准)</span>
+        </p>
         <pre><code>{apiCode}</code></pre>
 
 
@@ -202,9 +253,16 @@ function(data) {
         <h3>Generator Code</h3>
         <p>You need to declare an anonymous function that serves as a converter and returns a value. When the plugin calls this function, it will pass an object and receive the converted data to generate code upon button click.</p>
 
-        <p>The converter format is as follows:</p>
+        <p>
+          <span>The converter format is as follows</span>
+
+        </p>
         <pre><code>{generateCode}</code></pre>
-        <p>The format of the input data parameter is as follows:</p>
+        <p>
+          <span>The format of the input data parameter is as follows</span>
+          <span style={{fontSize: 10}}>(For example only, the JSON return value shall prevail)</span>
+          <span>:</span>
+        </p>
         <pre><code>{apiCode}</code></pre>
 
         <p>Tip: You can edit and debug the code in your editor without errors before pasting it here.</p>
