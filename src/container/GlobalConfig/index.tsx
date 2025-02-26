@@ -20,7 +20,7 @@ const GlobalConfig = () => {
     const handleSubmit = () => {
         data.updateTime = new Date().toLocaleString()
         globalConfigStorageSet(data).then(res => {
-          alert('保存成功')
+          alert('ok')
         })
     }
     const handleChange = (key: keyof GlobalConfigProps, value: any) => {
