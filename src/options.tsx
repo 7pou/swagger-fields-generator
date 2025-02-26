@@ -4,7 +4,6 @@ import ProjectConfig from "~container/ProjectConfig"
 import GeneratorConfig from "~container/GeneratorConfig"
 import './styles/options.scss'
 import './styles/iconfont.css'
-import 'https://www.googletagmanager.com/gtag/js?id=$PLASMO_PUBLIC_GTAG_ID'
 import Help from "~container/Help"
 import ErrorBoundary from "~components/ErrorBoundary"
 import ErrorWarning from "~container/ErrorWarning"
