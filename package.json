@@ -2,7 +2,7 @@
   "name": "swagger-fields-generator",
   "displayName": "Swagger fields generator",
   "version": "0.0.1",
-  "description": "A browser extension that simplifies API transformations, quickly generating forms and tables, and accelerating interface development.",
+  "description": "Automatically convert Swagger API definitions into form fields and columns, supporting custom field converters.",
   "author": "7pou",
   "scripts": {
     "dev": "plasmo dev",
