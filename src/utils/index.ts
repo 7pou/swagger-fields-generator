@@ -127,5 +127,10 @@ export function compileJsonSchemaToTs(schema) {
   return generateType(schema);
 }
 
+// 判断数据类型
+export const formatType = (data) => {
+  return Object.prototype.toString.call(data).slice(8, -1).toLowerCase()
+}
+
 
 
