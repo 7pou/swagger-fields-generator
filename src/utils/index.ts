@@ -11,7 +11,7 @@ export const uuid = (): string => {
 };
 
 export const multiLine2array = (str: string): string[] => {
-  return str?.replace('\r', '\n').split('\n') || [];
+  return str?.replace(/\r/g, '\n').split('\n') || [];
 }
 
 export const isValid = (data) => {
@@ -27,9 +27,9 @@ export const isTargetUrl = (target: string, url: string): boolean => {
   if (!url || !target) return false;
   url = decodeURIComponent(url);
   target = decodeURIComponent(target);
-  if (target.includes('*')) {
-    const regex = new RegExp('^' + target.replace(/\*/g, '.*') + '$');
-    return regex.test(url);
+  if (url.includes('*')) {
+    const regex = new RegExp('^' + url.replace(/\*/g, '.*') + '$');
+    return regex.test(target);
   }
   if (url === target) return true;
   return target.indexOf(url) === 0;
@@ -133,4 +133,12 @@ export const formatType = (data) => {
 }
 
 
+export const parseTryUrls = (urls: string, origin?: string) => {
 
+  const list = multiLine2array(urls)
+  return list.map(url => {
+    if (!origin) return url
+    if (url.indexOf(origin) > -1) return url
+    return origin + url
+  })
+}
