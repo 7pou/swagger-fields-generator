@@ -107,14 +107,8 @@ const ProjectConfig = () => {
           render: (text, record, index) => (
             <Flex>
               <Button type="link" onClick={() => handleEdit(index)}>{chrome.i18n.getMessage('edit')}</Button>
-              {
-                record.uuid !== 'auto-project-1' && (
-                  <>
-                    <div style={{width:4}}></div>
-                    <Button  type="link" onClick={() => handleDelete(index)}>{chrome.i18n.getMessage('delete')}</Button>
-                  </>
-                )
-              }
+              <div style={{width:4}}></div>
+              <Button  type="link" onClick={() => handleDelete(index)}>{chrome.i18n.getMessage('delete')}</Button>
             </Flex>
           )
         }
