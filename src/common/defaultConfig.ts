@@ -19,6 +19,7 @@ export const defaultConfig = {
             '/v2/swagger.json',
             '/api/swagger.json',
             '/v2/api-docs',
+            '/v3/api-docs',
             '/v1/swagger.json',
             '/api/v1/api-docs',
             '/api/v2/api-docs',
@@ -89,14 +90,6 @@ export const defaultConfig = {
             json: '/v2/swagger.json',
             createTime: new Date().toLocaleString(),
         },
-        {
-            enable: true,
-            uuid: 'auto-project-1',
-            btns: 'auto-generator-1,auto-generator-2',
-            url: '*',
-            json: '/api-docs-json\r/v2/swagger.json\r/api/swagger.json\r/v2/api-docs\r/v1/swagger.json\r/api/v1/api-docs\r/api/v2/api-docs',
-            createTime: new Date().toLocaleString(),
-        }
     ]
 
 }
