@@ -10,6 +10,7 @@
     "package": "plasmo package"
   },
   "dependencies": {
+    "@apidevtools/swagger-parser": "^12.0.0",
     "@plasmohq/storage": "^1.15.0",
     "plasmo": "0.90.3",
     "react": "18.2.0",
@@ -25,15 +26,23 @@
     "typescript": "5.3.3"
   },
   "manifest": {
-    "permissions": ["tabs"],
+    "permissions": [
+      "tabs"
+    ],
     "sandbox": {
-      "pages": ["sandbox.html"]
+      "pages": [
+        "sandbox.html"
+      ]
     },
     "default_locale": "en",
     "web_accessible_resources": [
       {
-        "resources": ["sandbox.html"],
-        "matches": ["<all_urls>"]
+        "resources": [
+          "sandbox.html"
+        ],
+        "matches": [
+          "<all_urls>"
+        ]
       }
     ]
   }
