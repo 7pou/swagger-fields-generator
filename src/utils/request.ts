@@ -1,13 +1,14 @@
-const request = (options) => {
+const request = ({url, ...options}): Promise<Response> => {
     return new Promise((resolve, reject) => {
-        fetch(options.url, options).then((response) => {
+        fetch(url, options).then((response) => {
+
             if (response.ok) {
-                resolve(response.json()) 
+                resolve(response)
             } else {
                 reject(response)
             }
-        }).then((data) => {
-            reject(data)
+        }).catch((error) => {
+            reject(error)
         })
     })
 }
