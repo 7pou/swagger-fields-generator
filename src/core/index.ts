@@ -5,6 +5,7 @@ import { globalConfigStorageGet } from "~storage/global";
 import { type ProjectConfigProps } from "~storage/project";
 import { findChild, stringSplit } from "~utils";
 import analytics from "~utils/analytics";
+import eventBus from "~utils/eventBus";
 
 const INSERT_MARKER = 'inserted'
 
@@ -82,11 +83,12 @@ export const insertOpblockBtns = async (projectConfig: ProjectConfigProps, json)
 
 /** 获取href通过tabs  */
 export const getCurrentUrlByChromeTabs = () => {
-    return new Promise<string | null>((resolve, reject) => {
+    return new Promise<URL | null>((resolve, reject) => {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             if (tabs.length > 0) {
                 const currentUrl = tabs[0].url;
-                resolve(decodeURIComponent(currentUrl))
+                const url = new URL(currentUrl)
+                resolve(url)
             } else {
                 resolve(null)
             }
@@ -119,7 +121,7 @@ function openCenteredWindow(url) {
 
 export const openOptionsPage = (params: {tab: 'global' | 'project' | 'generator' | 'help', id?: string} = {tab: 'global'}) => {
   setOptionsPageParams(params)
-  chrome.runtime.sendMessage({type: MessageType.OPTIONS_PARAMS, params})
+  eventBus.emit(MessageType.OPTIONS_PARAMS, params)
   chrome.runtime.openOptionsPage()
 }
 
