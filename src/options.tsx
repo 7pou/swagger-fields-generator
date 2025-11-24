@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import "~utils/eventBus"
 import GlobalConfig from "~container/GlobalConfig"
 import ProjectConfig from "~container/ProjectConfig"
 import GeneratorConfig from "~container/GeneratorConfig"
@@ -9,6 +10,7 @@ import ErrorBoundary from "~components/ErrorBoundary"
 import ErrorWarning from "~container/ErrorWarning"
 import { getOptionsPageParams } from "~storage/app"
 import { MessageType } from "~common/messageType"
+import eventBus from "~utils/eventBus"
 function IndexOptions() {
   const [tab, setTab] = useState(0)
   const tabmap = {
@@ -24,9 +26,9 @@ function IndexOptions() {
         setTab(tabmap[params.tab])
       }
     })
-    chrome.runtime.onMessage.addListener((message: any) => {
-      if (message?.type === MessageType.OPTIONS_PARAMS) {
-        setTab(tabmap[message.params.tab])
+    eventBus.on(MessageType.OPTIONS_PARAMS, (data) => {
+      if (data?.tab && tabmap[data.tab] !== undefined) {
+        setTab(tabmap[data.tab])
       }
     })
 
