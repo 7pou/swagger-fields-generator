@@ -2,8 +2,8 @@ import { forwardRef, useImperativeHandle, useRef, useState } from "react"
 import Button from "~components/Button"
 import Flex from "~components/Flex"
 import FormItem from "~components/Form/Item"
+import CodeEditor from "~components/Form/libs/CodeEditor"
 import Input from "~components/Form/libs/Input"
-import Textarea from "~components/Form/libs/Textarea"
 import Modal from "~components/Modal"
 import type { GenerateConfigProps } from "~storage/generator"
 import analytics from "~utils/analytics"
@@ -11,7 +11,7 @@ import analytics from "~utils/analytics"
 const GeneratorConfigEdit = forwardRef((props, ref) => {
     const [visible, setVisible] = useState(false)
     const [data, setData] = useState<GenerateConfigProps>({})
-    const handleResolve: any = useRef();
+    const handleResolve: any = useRef(null);
      const handleChange = (key: keyof GenerateConfigProps, value: any) => {
       setData({ ...data,[key]: value})
     }
@@ -43,13 +43,16 @@ const GeneratorConfigEdit = forwardRef((props, ref) => {
     }
     return (
 
-        <Modal title={chrome.i18n.getMessage(data.uuid? 'edit': 'create')} open={visible} footer={renderFooter()}>
-            <FormItem width={100} label={chrome.i18n.getMessage('button_name')}>
+        <Modal title={chrome.i18n.getMessage(data.uuid? 'edit': 'create')} width={800} open={visible} footer={renderFooter()}>
+            <FormItem direction="column" width={100} label={chrome.i18n.getMessage('button_name')}>
               <Input value={data.btnName} onChange={(e) => handleChange('btnName', e)}  />
             </FormItem>
 
-            <FormItem width={100} label={chrome.i18n.getMessage('generate_code')}>
-              <Textarea value={data.code} onChange={e => handleChange('code', e)} />
+            <FormItem direction="column" width={100} label={chrome.i18n.getMessage('generate_code')}>
+              <CodeEditor
+                value={data.code || ''}
+                onChange={(v) => handleChange('code', v)}
+              />
             </FormItem>
         </Modal>
     )
