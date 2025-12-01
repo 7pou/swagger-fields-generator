@@ -5,12 +5,13 @@ interface FormItemProps {
     label?: ReactNode;
     width?: number;
     required?: boolean;
-    children: ReactNode
+    children: ReactNode;
+    direction?: 'row' | 'column';
 }
 const FormItem = (props: FormItemProps) => {
     return (
-        <Flex className="swagger-fields-generator_form-item">
-            <label className={"swagger-fields-generator_label " + (props.required ? 'required' : '')} style={{flex: '0 0 ' + (props.width || 80) + 'px'}}>{props.label}</label>
+        <Flex gap={10} className="swagger-fields-generator_form-item" direction={props.direction || 'row'}>
+            <label className={"swagger-fields-generator_label " + (props.required ? 'required' : '')} style={ props.direction === 'row' ? {flex: '0 0 ' + (props.width || 80) + 'px'} : {width: '100%'}}>{props.label}</label>
             {props.children}
         </Flex>
     )
