@@ -4,7 +4,7 @@ import { generatorStorageGetByUuid } from "~storage/generator";
 import { globalConfigStorageGet } from "~storage/global";
 import { type ProjectConfigProps } from "~storage/project";
 import { findChild, stringSplit } from "~utils";
-import analytics from "~utils/analytics";
+import bgrun from "~utils/bgrun";
 import eventBus from "~utils/eventBus";
 
 const INSERT_MARKER = 'inserted'
@@ -38,7 +38,7 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
           btnEL.classList.add('btn-collapse')
         }
         btnEL.onclick = (e) => {
-          analytics.fireEvent('click', {page: 'swagger页面', type: '生成代码', action: generator.btnName, })
+          bgrun.fireEvent('click', {page: 'swagger页面', type: '生成代码', action: generator.btnName})
           e.stopPropagation()
           const path = findChild(summary, '.opblock-summary-path')?.innerText
           if (!path) return
@@ -96,6 +96,7 @@ export const getCurrentUrlByChromeTabs = () => {
     })
 }
 
+/** 打开沙盒窗口, 并返回窗口已经loaded的实例 */
 function openCenteredWindow(url) {
     const screenWidth = window.screen.width;
     const screenHeight = window.screen.height;
