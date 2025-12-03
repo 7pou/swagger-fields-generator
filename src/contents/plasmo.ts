@@ -1,10 +1,13 @@
 import type { PlasmoCSConfig } from "plasmo"
+import "~utils/eventBus"
 import { createBtns, elMaskGet, elMaskSet, insertOpblockBtns, installExtention } from "~core"
 import { globalConfigStorageGet } from "~storage/global"
 import { projectStorageGetByHost, projectStorageUpdate } from "~storage/project"
 import { findTarget } from "~utils"
 import { requestSource } from "~utils/requestSource"
 import '../styles/content.scss'
+import eventBus from "~utils/eventBus"
+import { MessageType } from "~common/messageType"
 export const config: PlasmoCSConfig = {
   // matches: ["https://www.plasmo.com/*"]
 }
@@ -13,19 +16,38 @@ window.addEventListener("message", (e) => {
     console.log(e.data.data)
   }
 })
+eventBus.on(MessageType.LOG, (...data) => {
+  console.log(...data);
+})
 window.addEventListener("load", async() => {
+
+  // 安装扩展
   await installExtention()
+
+  // 获取全局配置
   const global = await globalConfigStorageGet()
+
+  // 如果全局配置未开启, 则终止执行
   if (!global.enable) return
-  const data = await requestSource(location.href)
-  const project = await projectStorageGetByHost(location.href)
-  if (project) {
-    projectStorageUpdate({...project, loadJsonSuccess: !!data})
-    data && await insertOpblockBtns(project, data)
-  }
+
+  // 获取项目配置
+  const project = await projectStorageGetByHost(location.origin + location.pathname)
+
+  // 如果项目配置未开启, 则终止执行
+  if (!project || project.enable !== true) return
+
+  // 请求源数据
+  const data = await requestSource(location.origin)
+
+
+  // 更新项目是否请求成功的标志
+  projectStorageUpdate({...project, loadJsonSuccess: !!data})
+
+  // 插入按钮
+  data && await insertOpblockBtns(project, data)
 
   // 监听tag点击, 插入按钮
-   document.body.addEventListener("click", async(e) => {
+  document.body.addEventListener("click", async(e) => {
     const opblockTag = findTarget(e, '.opblock-tag')
     if (!opblockTag) return
     const opblock = findTarget(e, '.opblock-tag-section')
