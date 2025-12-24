@@ -8,6 +8,7 @@ import { requestSource } from "~utils/requestSource"
 import '../styles/content.scss'
 import eventBus from "~utils/eventBus"
 import { MessageType } from "~common/messageType"
+import SwaggerParser from '@apidevtools/swagger-parser'
 export const config: PlasmoCSConfig = {
   // matches: ["https://www.plasmo.com/*"]
 }
@@ -37,14 +38,18 @@ window.addEventListener("load", async() => {
   if (!project || project.enable !== true) return
 
   // 请求源数据
-  const data = await requestSource(location.origin)
+  const rawData = await requestSource(location.origin)
 
 
   // 更新项目是否请求成功的标志
-  projectStorageUpdate({...project, loadJsonSuccess: !!data})
+  projectStorageUpdate({...project, loadJsonSuccess: !!rawData})
 
   // 插入按钮
-  data && await insertOpblockBtns(project, data)
+  let dereferencedData = null
+  if (rawData) {
+    dereferencedData = await SwaggerParser.dereference(rawData)
+    await insertOpblockBtns(project, dereferencedData)
+  }
 
   // 监听tag点击, 插入按钮
   document.body.addEventListener("click", async(e) => {
@@ -58,7 +63,7 @@ window.addEventListener("load", async() => {
 
         if (elMaskGet(summary)) return
         elMaskSet(summary)
-        const btnsEL = await createBtns(project, summary, data)
+        const btnsEL = await createBtns(project, summary, dereferencedData)
 
         summary.appendChild(btnsEL)
       }
