@@ -9,7 +9,6 @@ export const requestSource = async (origin: string) => {
     const tryList = []
     const project = await projectStorageGetByHost(origin)
 
-    if (!project) return
     if (project && project.json) {
         tryList.push(...parseTryUrls(project.json, origin))
     } else {
