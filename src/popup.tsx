@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import "~utils/eventBus"
 import './styles/popup.scss'
 import { projectStorageGetByHost, projectStorageInsert, projectStorageUpdate, type ProjectConfigProps } from "~storage/project"
 import Switch from "~components/Form/libs/Switch"
@@ -9,10 +10,11 @@ import { generatorStorageGet } from "~storage/generator"
 import { requestSource } from "~utils/requestSource"
 import { getCurrentUrlByChromeTabs, insertOpblockBtns, openOptionsPage } from "~core"
 import analytics from "~utils/analytics"
-
+import SwaggerParser from '@apidevtools/swagger-parser'
 
 function IndexPopup() {
   const [project, setProject] = useState<ProjectConfigProps | null>(null)
+  const [switchLoading, setSwitchLoading] = useState(false)
 
 
 
@@ -26,7 +28,7 @@ function IndexPopup() {
   const postProject = async () => {
     const url = await getCurrentUrlByChromeTabs().catch()
     if (!url) return
-    const projectData = await projectStorageGetByHost(url).catch()
+    const projectData = await projectStorageGetByHost(url.origin).catch()
     if (!projectData) return
     return projectData
   }
@@ -38,34 +40,45 @@ function IndexPopup() {
   const handleOpen = async () => {
     analytics.fireEvent('click', {page: 'popup',type: 'switch'})
 
+    if (project?.enable === true) {
+      const projectConfig = { ...project, enable: false, loadJsonSuccess: null }
+      await projectStorageUpdate(projectConfig)
+      setProject(projectConfig)
+      return
+    }
+
     const config = await globalConfigStorageGet()
     const generate = await generatorStorageGet()
     const url = await getCurrentUrlByChromeTabs()
-    const data = await requestSource(url)
+
+    setSwitchLoading(true)
+    const rawData = await requestSource(url.origin).finally(() => {
+      setSwitchLoading(false)
+    })
+    let dereferencedData = null
+    if (rawData) {
+      dereferencedData = await SwaggerParser.dereference(rawData)
+    }
     // 如果没有项目 则创建, 有的话只改变状态
     if (!project) {
       const projectConfig: ProjectConfigProps = {
         btns: generate.map(item => item.uuid).join(','),
-        url: url,
+        url: url.origin,
         json: config.json,
-        loadJsonSuccess: !!data
+        loadJsonSuccess: !!rawData
       }
       await projectStorageInsert(projectConfig)
-    } else if (project?.enable === true) {
-      await projectStorageUpdate({...project, enable: false, loadJsonSuccess: null})
+      setProject(projectConfig)
     } else {
-      await projectStorageUpdate({...project, enable: true, loadJsonSuccess: !!data})
+      const projectConfig = { ...project, enable: true, loadJsonSuccess: !!rawData }
+      await projectStorageUpdate(projectConfig)
+      setProject(projectConfig)
     }
 
-    // 重新获取项目信息并更新到state中, 如果当前项目为开启的话 则创建按钮
+    // 重新获取项目信息
     const projectd = await postProject()
 
-    if (projectd) {
-      setProject(projectd)
-      if (projectd?.enable === true) {
-        await insertOpblockBtns(projectd, data)
-      }
-    }
+    dereferencedData && await insertOpblockBtns(projectd, dereferencedData)
 
   }
   const  handleNavFeedback = () => {
@@ -86,7 +99,7 @@ function IndexPopup() {
     <div className="swagger-fields-generator-popup">
       <Flex  className="header" align="center" justify="space-between">
         <div className="icon">🧙🏻</div>
-        <Switch size="small" value={!!project?.enable} onChange={handleOpen} />
+        <Switch size="small" value={!!project?.enable} onChange={handleOpen} loading={switchLoading} />
       </Flex>
       <View if={!!project?.enable}>
         <View if={project?.loadJsonSuccess === true} className="error-message" >
