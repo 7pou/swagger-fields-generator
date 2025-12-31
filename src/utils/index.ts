@@ -85,48 +85,6 @@ export const downloadJson = (jsonData) => {
 }
 
 
-export function compileJsonSchemaToTs(schema) {
-  const typeMap = {
-    string: 'string',
-    number: 'number',
-    integer: 'number',
-    boolean: 'boolean',
-    object: 'object',
-    array: 'Array<any>',
-    null: 'null',
-  };
-
-  function generateType(schema, deep = 1) {
-    if (!schema) return deep > 1 ? 'any' : null;
-
-    switch (schema.type) {
-      case 'object':
-        let properties = '';
-        if (schema.properties) {
-          for (let key in schema.properties) {
-            const prop = schema.properties[key];
-            properties += `${key}: ${generateType(prop, deep +1)};`;
-          }
-        }
-        if (schema.additionalProperties) {
-          properties += `[key: string]: ${generateType(schema.additionalProperties, deep + 1)};`;
-        }
-        return `{ ${properties} }`;
-
-      case 'array':
-        if (schema.items) {
-          return `Array<${generateType(schema.items)}>`;
-        }
-        return 'Array<any>';
-
-      default:
-        return typeMap[schema.type] || 'any';
-    }
-  }
-
-  return generateType(schema);
-}
-
 // 判断数据类型
 export const formatType = (data) => {
   return Object.prototype.toString.call(data).slice(8, -1).toLowerCase()
