@@ -10,7 +10,8 @@ import { generatorStorageGet } from "~storage/generator"
 import { requestSource } from "~utils/requestSource"
 import { getCurrentUrlByChromeTabs, insertOpblockBtns, openOptionsPage } from "~core"
 import analytics from "~utils/analytics"
-import SwaggerParser from '@apidevtools/swagger-parser'
+import eventBus from "~utils/eventBus"
+import { MessageType } from "~common/messageType"
 
 function IndexPopup() {
   const [project, setProject] = useState<ProjectConfigProps | null>(null)
@@ -55,10 +56,6 @@ function IndexPopup() {
     const rawData = await requestSource(url.origin).finally(() => {
       setSwitchLoading(false)
     })
-    let dereferencedData = null
-    if (rawData) {
-      dereferencedData = await SwaggerParser.dereference(rawData)
-    }
     // 如果没有项目 则创建, 有的话只改变状态
     if (!project) {
       const projectConfig: ProjectConfigProps = {
@@ -76,9 +73,11 @@ function IndexPopup() {
     }
 
     // 重新获取项目信息
-    const projectd = await postProject()
+    const projectConfig = await postProject()
 
-    dereferencedData && await insertOpblockBtns(projectd, dereferencedData)
+    if (projectConfig && rawData) {
+      eventBus.emit(MessageType.INSERT_OPBLOCK_BTNS, {projectConfig, rawData})
+    }
 
   }
   const  handleNavFeedback = () => {
