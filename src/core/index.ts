@@ -24,20 +24,20 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
     // 获取生成配置列表
     const generatorList = await generatorStorageGetByUuid(stringSplit(projectConfig.btns))
     // 按钮容器
-    const btnsEL = document.createElement('div')
-    btnsEL.classList.add('opblock-btns')
+    const $btnBox = document.createElement('div')
+    $btnBox.classList.add('opblock-btns')
     const globalConfig = await globalConfigStorageGet()
     for(let i = 0; i < generatorList.length; i++) {
         const generator = generatorList[i]
         if (!generator.enable) continue
 
         // 创建按钮, 绑定点击事件
-        const btnEL = document.createElement('button')
-        btnEL.innerText = generator.btnName
+        const $btn = document.createElement('button')
+        $btn.innerText = generator.btnName
         if (i+1 > globalConfig.maxBtn ) {
-          btnEL.classList.add('btn-collapse')
+          $btn.classList.add('btn-collapse')
         }
-        btnEL.onclick = (e) => {
+        $btn.onclick = (e) => {
           bgrun.fireEvent('click', {page: 'swagger页面', type: '生成代码', action: generator.btnName})
           e.stopPropagation()
           const path = findChild(summary, '.opblock-summary-path')?.innerText
@@ -47,26 +47,26 @@ export const createBtns = async (projectConfig: ProjectConfigProps, summary: HTM
 
           const url = chrome.runtime.getURL("sandbox.html")
           openCenteredWindow(url).then((sandbox) => {
-              sandbox.postMessage({ type: MessageType.EXECUTE, code: generator.code, json, input: {path, method, ...schema} }, "*");
+              sandbox.postMessage({ type: MessageType.SENDBOX_EXECUTE, code: generator.code, json, input: {path, method, ...schema} }, "*");
           });
         }
-        btnsEL.appendChild(btnEL)
+        $btnBox.appendChild($btn)
     }
 
     if(generatorList.length > globalConfig?.maxBtn) {
-      const collapseBtn = document.createElement('button')
-      collapseBtn.innerText = '>>'
-      collapseBtn.onclick = () => {
-        if (btnsEL.classList.contains('open')) {
-          collapseBtn.innerText = '>>'
+      const $collapseBtn = document.createElement('button')
+      $collapseBtn.innerText = '>>'
+      $collapseBtn.onclick = () => {
+        if ($btnBox.classList.contains('open')) {
+          $collapseBtn.innerText = '>>'
         } else {
-          collapseBtn.innerText = '<<'
+          $collapseBtn.innerText = '<<'
         }
-        btnsEL.classList.toggle('open')
+        $btnBox.classList.toggle('open')
       }
-      btnsEL.appendChild(collapseBtn)
+      $btnBox.appendChild($collapseBtn)
     }
-    return btnsEL
+    return $btnBox
 }
 
 
