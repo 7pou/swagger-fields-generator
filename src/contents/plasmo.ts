@@ -20,6 +20,13 @@ window.addEventListener("message", (e) => {
 eventBus.on(MessageType.LOG, (...data) => {
   console.log(...data);
 })
+eventBus.on(MessageType.INSERT_OPBLOCK_BTNS, async(data) => {
+
+  const { projectConfig, rawData } = data
+  const dereferencedData = await SwaggerParser.dereference(rawData)
+
+  insertOpblockBtns(projectConfig, dereferencedData)
+})
 window.addEventListener("load", async() => {
 
   // 安装扩展
