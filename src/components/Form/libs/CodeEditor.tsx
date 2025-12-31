@@ -7,15 +7,17 @@ import 'prismjs/themes/prism.css';
 
 interface CodeEditorProps {
   value: string;
-  onChange: (value: string) => void;
+  disabled?: boolean;
+  onChange?: (value: string) => void;
 }
-const CodeEditor = ({ value, onChange }: CodeEditorProps) => {
+const CodeEditor = ({ value, onChange, disabled }: CodeEditorProps) => {
   // 设置初始代码
   return (
 
     <div>
       <Editor
         value={value}
+        disabled={disabled}
         onValueChange={onChange}
         highlight={(code) => highlight(code, languages.js)}
         padding={10}
